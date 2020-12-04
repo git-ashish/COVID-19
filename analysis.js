@@ -53,7 +53,9 @@ const analysis = authors => {
 
     // Tokenizer
 
-    const tokenizer = new natural.WordTokenizer()
+    // const tokenizer = new natural.WordTokenizer()
+    const tokenizer = new natural.RegexpTokenizer({ pattern: /([A-zÀ-ÿ-]+|[0-9._]+|.|!|\?|'|"|:|;|,)/i })
+
 
     nodes.forEach((node, i) => {
         console.log('Tokenizing author #', i)
