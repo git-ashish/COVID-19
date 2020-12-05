@@ -25,7 +25,7 @@ const analysis = authors => {
 
     // Reduce authors
 
-    const maxDocs = 8
+    const maxDocs = 4
     const nodes = authors.filter(a => a.docs >= maxDocs)
 
 
@@ -246,12 +246,12 @@ const analysis = authors => {
 
         simulation
             .force('charge', reuse.forceManyBodyReuse()
-                .strength(10)
+                .strength(-10)
                 .distanceMax(30)
             )
             .force('collide', d3.forceCollide()
                 .radius(30)
-                .strength(.1)
+                .strength(.5)
                 .iterations(10)
             )
             .force('center', d3.forceCenter(0, 0))
@@ -392,7 +392,6 @@ const analysis = authors => {
             node.y = Math.round(node.y)
             delete node.vx
             delete node.vy
-            delete node.id
         })
 
         // Writing files

@@ -3,17 +3,12 @@ import * as PIXI from 'pixi.js'
 let stage, max
 let index = []
 
-PIXI.BitmapFont.from('KeywordFont', {
-    fontFamily: 'Arial',
-    fontSize: 72,
-    fill: 0xc7d1c2,
-})
-
 export default () => {
 
     const tokens = new PIXI.Graphics()
     tokens.interactiveChildren = false
     stage = s.pixi.addChild(tokens)
+    stage.name = 'keywords_distant'
 
     s.triplets.forEach(triplet => {
 
@@ -21,10 +16,20 @@ export default () => {
         const x = triplet.position[0]
         const y = triplet.position[1]
 
-        const scale = .003
-        const text = new PIXI.BitmapText(token[0][0], { fontName: 'KeywordFont' })
-        text.align = 'center'
-        text.scale.set(scale * token[0][1])
+        const text = new PIXI.BitmapText(
+            token[0][0],
+            {
+                fontName: 'Arial',
+                fontSize: '64',
+                fill: 0xFEDD00,
+                align: 'center',
+            })
+
+        const value = token[0][1]
+        const base = 100
+        const magnitude = .004
+        text.scale.set((value + base) * magnitude)
+
         text.position.set(x - text.width / 2, y - text.height / 2)
 
         // Check overlapping
@@ -35,11 +40,12 @@ export default () => {
 
             const l1 = index[i]
             const l2 = text
+            const margin = 50 // Important to correct shoerter height
 
-            if (!(l2.x > l1.x + l1.width
-                || l2.x + l2.width < l1.x
-                || l2.y > l1.y + l1.height
-                || l2.y + l2.height < l1.y)) {
+            if (!(l2.x > l1.x + l1.width + margin
+                || l2.x + l2.width + margin < l1.x
+                || l2.y > l1.y + l1.height + margin
+                || l2.y + l2.height + margin < l1.y)) {
                 overlapping = true
                 break
             }

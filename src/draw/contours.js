@@ -11,6 +11,7 @@ const thresholds = 30
 export default () => {
 
     const stage = new PIXI.Graphics()
+    stage.name = 'contours'
     s.pixi.addChild(stage)
     
     stage.interactiveChildren = false
