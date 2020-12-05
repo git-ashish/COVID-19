@@ -25,7 +25,7 @@ const analysis = authors => {
 
     // Reduce authors
 
-    const maxDocs = 4
+    const maxDocs = 8
     const nodes = authors.filter(a => a.docs >= maxDocs)
 
 
@@ -235,6 +235,9 @@ const analysis = authors => {
         })
 
 
+
+    // Simulation
+
     const network = (nodes, links) => {
 
         console.log('\nSimulation starts\n')
@@ -243,11 +246,12 @@ const analysis = authors => {
 
         simulation
             .force('charge', reuse.forceManyBodyReuse()
-                .strength(-5)
+                .strength(10)
+                .distanceMax(30)
             )
             .force('collide', d3.forceCollide()
                 .radius(30)
-                .strength(.5)
+                .strength(.1)
                 .iterations(10)
             )
             .force('center', d3.forceCenter(0, 0))
@@ -268,6 +272,8 @@ const analysis = authors => {
     }
 
     const afterSimulation = (nodes, links) => {
+
+
 
         // K-Means
 
@@ -350,6 +356,16 @@ const analysis = authors => {
                 }
             }
         }
+
+        // Sort triplets by first value
+        
+        const compare = (a, b) => {
+            if (a.tokens[0][1] > b.tokens[0][1]) return -1
+            if (b.tokens[0][1] > a.tokens[0][1]) return 1
+            return 0
+        }
+
+        triplets.sort(compare)
 
 
         writing(nodes, links, triplets, millefeuille1, millefeuille2)
