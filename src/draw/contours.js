@@ -3,7 +3,7 @@ import { extent } from "d3-array"
 import { contourDensity } from "d3-contour"
 
 const color = 0x999999
-const contourWidth = 3
+const contourWidth = 4
 const cellSize = 15
 const bandwidth = 100
 const thresholds = 30

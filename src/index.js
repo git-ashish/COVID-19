@@ -33,7 +33,7 @@ import * as PIXI from 'pixi.js'
 import { Viewport } from 'pixi-viewport'
 import { scaleLinear } from 'd3-scale'
 import { extent } from "d3-array"
-import arialXML from '/arial.xml'
+import arialXML from './constant/arial.xml'
 
 // Global variables
 
@@ -92,8 +92,8 @@ Promise.all([
     let scale = scaleX < scaleY ? scaleX : scaleY
     scale = printing ? scale * 10 : scale
 
-    const zoomMin = scale * .9
-    const zoomMax = 3
+    const zoomMin = scale * .8 // reduction is to create a margin
+    const zoomMax = 4
 
     // Set vieport
 
