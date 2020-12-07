@@ -4,6 +4,7 @@ const fs = require('fs')
 const csv = require('csv-parser')
 const accents = require('remove-accents')
 const dice = require('fast-dice-coefficient')
+const stringify = require("json-stringify-pretty-compact")
 
 // Time counter
 
@@ -18,7 +19,7 @@ fs.createReadStream('./data/metadata.csv').pipe(csv())
 
 // Parsing
 
-const parse = (records) => {
+const parse = records => {
 
     // Filtering and inversion
 
@@ -41,7 +42,8 @@ const parse = (records) => {
             string = string.replace(/\s\s+/g, ' ') // Replace multiple spaces
             string = string.replace('undefined ', '') // Clean names already switched
             // string = string.replace(/\./g, '') // remove dots
-            
+            string = string.replace(/\,/g, '') // remove commas
+
             // filter
             if (
                 string.includes('039') ||
@@ -52,7 +54,7 @@ const parse = (records) => {
                 console.log(string, 'removed')
                 return authors
             }
-            
+
             authors.push(string)
             return authors
         }, [])
@@ -70,6 +72,8 @@ const parse = (records) => {
 
     // Grouping by author
 
+    idCounter = 0
+
     const authors = records
         // .slice(0, 100) // Trim for testing
         .reduce((authors, record, i) => {
@@ -79,24 +83,30 @@ const parse = (records) => {
             const year = parseInt(record.publish_time.split('-')[0])
             const text = `${record.title} ${record.abstract} `
 
-            const update = author => {
-                author.docs++
-                author.text += text
-                if (author.years[year]) (author.years[year])++
-                else (author.years[year]) = 1
-            }
+            // Create an author
 
             const add = name => {
                 authors.push({
+                    id: ++idCounter,
                     name: name,
                     docs: 1,
-                    years: {
-                        [year]: 1
-                    },
+                    years: { [year]: 1 },
                     peers: [],
-                    variants: [],
+                    // variants: [],
                     text: text
                 })
+            }
+
+            // Update an author
+
+            const update = (author) => {
+                author.docs++
+                author.text += text
+                if (author.years[year])
+                    (author.years[year])++
+                else (author.years[year]) = 1
+                // if (!author.variants.includes(name) && name)
+                //     author.variants.push(name)
             }
 
             record.authors.forEach(name => {
@@ -109,12 +119,11 @@ const parse = (records) => {
                 }
 
                 // Update similar
-                const similar = authors.find(a => dice(a.name, name) > .9)
-                if (similar) {
-                    if (!similar.variants.includes(similar.name)) similar.variants.push(similar.name)
-                    update(similar)
-                    return
-                }
+                // const similar = authors.find(a => dice(a.name, name) > .8)
+                // if (similar) {
+                //     update(similar, name)
+                //     return
+                // }
 
                 // Create new
                 add(name)
@@ -125,11 +134,8 @@ const parse = (records) => {
 
         }, [])
 
-    // Add ids
 
-    authors.forEach((author, i) => {
-        author.id = i
-    })
+
 
     // Transform authors into ids
 
@@ -143,11 +149,11 @@ const parse = (records) => {
 
             if (record.authors.includes(author.name)) flag = true
 
-            author.variants.forEach(variant => {
-                if (record.authors.includes(variant)) {
-                    flag = true
-                }
-            })
+            // author.variants.forEach(variant => {
+            //     if (record.authors.includes(variant)) {
+            //         flag = true
+            //     }
+            // })
 
             return flag
         })
@@ -172,7 +178,7 @@ const parse = (records) => {
 
     // Write JSON
 
-    fs.writeFile('./data/authors.json', JSON.stringify(authors, null, '\t'), err => {
+    fs.writeFile('./data/authors.json', stringify(authors, { maxLength: 200 }), err => {
         if (err) throw err
     })
 

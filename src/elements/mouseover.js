@@ -31,7 +31,7 @@ export function mouseover(node) {
     focus.append('h3').html('Co-author Nationalities')
     focus.append('p').html(line)
     Object.entries(node.nationalities).sort().forEach(([key, value], i) => {
-        const blocks = block.repeat(value * 4)
+        const blocks = block.repeat(value)
         focus.append('p').html(`${blocks} &nbsp; ${key}`)
     })
 
@@ -42,7 +42,7 @@ export function mouseover(node) {
     focus.append('p').html(line)
 
     Object.entries(node.years).forEach(([key, value], i) => {
-        const blocks = block.repeat(value * 4)
+        const blocks = block.repeat(value)
         focus.append('p').html(`${blocks} &nbsp; ${key}`)
     })
 

@@ -33,7 +33,9 @@ import * as PIXI from 'pixi.js'
 import { Viewport } from 'pixi-viewport'
 import { scaleLinear } from 'd3-scale'
 import { extent } from "d3-array"
-import arialXML from '/arial.xml'
+
+import arialXML from './constant/arial.xml'
+import arialPNG from './constant/arial.png'
 
 // Global variables
 

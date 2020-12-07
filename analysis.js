@@ -2,6 +2,7 @@ const skmeans = require("skmeans");
 const fs = require('fs')
 const natural = require('natural')
 const sw = require('stopword')
+const stringify = require("json-stringify-pretty-compact")
 
 const reuse = require('d3-force-reuse')
 const d3 = require('d3');
@@ -397,13 +398,13 @@ const analysis = authors => {
         // Writing files
 
         fs.writeFile('./src/data/nodes.json', JSON.stringify(nodes), err => { if (err) throw err })
-        fs.writeFile('./data/nodes.json', JSON.stringify(nodes, null, '\t'), err => { if (err) throw err })
+        fs.writeFile('./data/nodes.json', stringify(nodes, { maxLength: 200 }), err => { if (err) throw err })
         fs.writeFile('./src/data/links.json', JSON.stringify(links), err => { if (err) throw err })
-        fs.writeFile('./data/links.json', JSON.stringify(links, null, '\t'), err => { if (err) throw err })
+        fs.writeFile('./data/links.json', stringify(links, { maxLength: 200 }), err => { if (err) throw err })
         fs.writeFile('./src/data/triplets.json', JSON.stringify(triplets), err => { if (err) throw err })
-        fs.writeFile('./data/triplets.json', JSON.stringify(triplets, null, '\t'), err => { if (err) throw err })
-        fs.writeFile('./data/millefeuille1.json', JSON.stringify(millefeuille1, null, '\t'), err => { if (err) throw err })
-        fs.writeFile('./data/millefeuille2.json', JSON.stringify(millefeuille2, null, '\t'), err => { if (err) throw err })
+        fs.writeFile('./data/triplets.json', stringify(triplets, { maxLength: 200 }), err => { if (err) throw err })
+        fs.writeFile('./data/millefeuille1.json', stringify(millefeuille1, { maxLength: 200 }), err => { if (err) throw err })
+        fs.writeFile('./data/millefeuille2.json', stringify(millefeuille2, { maxLength: 200 }), err => { if (err) throw err })
 
         // Final report
 
