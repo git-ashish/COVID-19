@@ -1,8 +1,8 @@
-import * as PIXI from 'pixi.js'
+import { Graphics } from 'pixi.js'
 
 export default () => {
 
-    const stage = new PIXI.Graphics()
+    const stage = new Graphics()
     stage.interactiveChildren = false
     stage.alpha = .05
     s.viewport.addChild(stage)

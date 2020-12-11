@@ -1,8 +1,8 @@
-import * as PIXI from 'pixi.js'
+import { BitmapText, Graphics } from 'pixi.js'
 
 export default () => {
 
-    const stage = new PIXI.Graphics()
+    const stage = new Graphics()
     stage.alpha = 0
     stage.name = 'keywords_close'
     stage.interactiveChildren = false
@@ -20,7 +20,7 @@ export default () => {
 
         tokens.forEach(([key, value], i) => {
 
-            const text = new PIXI.BitmapText(
+            const text = new BitmapText(
                 key,
                 {
                     fontName: 'Arial',

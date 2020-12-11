@@ -1,11 +1,10 @@
-import * as PIXI from 'pixi.js'
+import { BitmapText, Graphics } from 'pixi.js'
 
-let stage, max
 let index = []
 
 export default () => {
 
-    const stage = new PIXI.Graphics()
+    const stage = new Graphics()
     stage.name = 'keywords_distant'
     stage.interactiveChildren = false
     s.viewport.addChild(stage)
@@ -16,7 +15,7 @@ export default () => {
         const x = triplet.position[0]
         const y = triplet.position[1]
 
-        const text = new PIXI.BitmapText(
+        const text = new BitmapText(
             token[0][0],
             {
                 fontName: 'Arial',
@@ -56,7 +55,8 @@ export default () => {
             stage.addChild(text)
             index.push(text)
 
-            // draw a rounded rectangle
+            // draw rectangle to check overlapping
+
             // const graphics = new PIXI.Graphics();
             // graphics.lineStyle(2, 0xFF00FF, 1)
             // graphics.beginFill(0x650A5A, 0.25)

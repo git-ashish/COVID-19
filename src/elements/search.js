@@ -1,4 +1,4 @@
-import * as PIXI from 'pixi.js'
+import { Point } from 'pixi.js'
 import autoComplete from '@tarekraafat/autocomplete.js'
 
 export default () => {
@@ -86,7 +86,7 @@ export default () => {
 
             const zoomIn = () => s.viewport.animate({
                 scale: s.zoomMax,
-                position: new PIXI.Point(x, y),
+                position: new Point(x, y),
                 time: 2000,
                 ease: 'easeInOutSine',
             })
@@ -95,13 +95,13 @@ export default () => {
 
             const zoomOutIn = () => s.viewport.animate({
                 scale: s.zoomMin,
-                position: new PIXI.Point((x + center.x) / 2, (y + center.y) / 2),
+                position: new Point((x + center.x) / 2, (y + center.y) / 2),
                 time: 2000,
                 ease: 'easeInOutSine',
                 callbackOnComplete: () => {
                     s.viewport.animate({
                         scale: s.zoomMax,
-                        position: new PIXI.Point(x, y),
+                        position: new Point(x, y),
                         time: 2000,
                         ease: 'easeInOutSine',
                     })

@@ -1,6 +1,5 @@
-import * as PIXI from 'pixi.js'
-import { extent } from "d3-array"
-import { contourDensity } from "d3-contour"
+import { Graphics } from 'pixi.js'
+import { contourDensity, extent } from 'd3'
 
 const color = 0x999999
 const contourWidth = 4
@@ -10,7 +9,7 @@ const thresholds = 30
 
 export default () => {
 
-    const stage = new PIXI.Graphics()
+    const stage = new Graphics()
     stage.interactiveChildren = false
     stage.name = 'contours'
     s.viewport.addChild(stage)

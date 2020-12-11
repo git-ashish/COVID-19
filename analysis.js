@@ -1,12 +1,12 @@
-const skmeans = require("skmeans");
+const skmeans = require('skmeans');
 const fs = require('fs')
 const natural = require('natural')
 const sw = require('stopword')
-const stringify = require("json-stringify-pretty-compact")
+const stringify = require('json-stringify-pretty-compact')
 
 const reuse = require('d3-force-reuse')
-const d3 = require('d3');
-const { cluster } = require("d3");
+const d3 = require('d3')
+const { cluster } = require('d3')
 
 
 // Time counter
@@ -55,7 +55,7 @@ const analysis = authors => {
     // Tokenizer
 
     // const tokenizer = new natural.WordTokenizer()
-    const tokenizer = new natural.RegexpTokenizer({ pattern: /([A-zÀ-ÿ-]+|[0-9._]+|.|!|\?|'|"|:|;|,)/i })
+    const tokenizer = new natural.RegexpTokenizer({ pattern: /([A-zÀ-ÿ-]+|[0-9._]+|.|!|\?|'|'|:|;|,)/i })
 
 
     nodes.forEach((node, i) => {

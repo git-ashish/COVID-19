@@ -5,7 +5,7 @@ import './constant/index.css'
 
 // Libraries
 
-import { json, xml } from 'd3-fetch'
+import { json, xml } from 'd3'
 
 
 // Data
@@ -29,10 +29,9 @@ import keywords_close from './draw/keywords_close.js'
 import keywords_distant from './draw/keywords_distant.js'
 import nodes from './draw/nodes.js'
 
-import * as PIXI from 'pixi.js'
+import { Application } from 'pixi.js'
 import { Viewport } from 'pixi-viewport'
-import { scaleLinear } from 'd3-scale'
-import { extent } from "d3-array"
+import { extent, scaleLinear } from 'd3'
 
 import arialXML from './constant/arial.xml'
 import arialPNG from './constant/arial.png'
@@ -62,7 +61,7 @@ Promise.all([
 
     // Set App
 
-    s.app = new PIXI.Application({
+    s.app = new Application({
         width: window.innerWidth, height: window.innerHeight,
         antialias: true,
         transparent: true,
