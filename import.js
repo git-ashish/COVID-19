@@ -3,7 +3,6 @@
 const fs = require('fs')
 const csv = require('csv-parser')
 const accents = require('remove-accents')
-const dice = require('fast-dice-coefficient')
 const stringify = require("json-stringify-pretty-compact")
 
 // Time counter
@@ -72,8 +71,6 @@ const parse = records => {
 
     // Grouping by author
 
-    idCounter = 0
-
     const authors = records
         // .slice(0, 100) // Trim for testing
         .reduce((authors, record, i) => {
@@ -83,51 +80,34 @@ const parse = records => {
             const year = parseInt(record.publish_time.split('-')[0])
             const text = `${record.title} ${record.abstract} `
 
-            // Create an author
+            // Create author
 
             const add = name => {
                 authors.push({
-                    id: ++idCounter,
+                    id: authors.length,
                     name: name,
                     docs: 1,
                     years: { [year]: 1 },
                     peers: [],
-                    // variants: [],
                     text: text
                 })
             }
 
-            // Update an author
+            // Update author
 
             const update = (author) => {
                 author.docs++
                 author.text += text
-                if (author.years[year])
-                    (author.years[year])++
+                if (author.years[year]) (author.years[year])++
                 else (author.years[year]) = 1
-                // if (!author.variants.includes(name) && name)
-                //     author.variants.push(name)
             }
 
+            // Create and update choice
+
             record.authors.forEach(name => {
-
-                // Update same
-                const same = authors.find(a => a.name === name)
-                if (same) {
-                    update(same)
-                    return
-                }
-
-                // Update similar
-                // const similar = authors.find(a => dice(a.name, name) > .8)
-                // if (similar) {
-                //     update(similar, name)
-                //     return
-                // }
-
-                // Create new
-                add(name)
-
+                const found = authors.find(a => a.name === name)
+                if (found) update(found)
+                else add(found)
             })
 
             return authors
