@@ -70,6 +70,7 @@ input {
 	font-weight: normal;
 	background-color: #333;
 	border: 0;
+	color: #999;
 }
 
 input, input:before, input:after {
