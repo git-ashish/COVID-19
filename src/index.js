@@ -131,6 +131,7 @@ Promise.all([
         // clusters()
         fps()
         search()
+        // stats()
     })
 
     // Font loader

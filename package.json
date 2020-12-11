@@ -36,10 +36,12 @@
   },
   "dependencies": {
     "@tarekraafat/autocomplete.js": "7.2.0",
+    "css-minimizer-webpack-plugin": "^1.1.5",
     "d3": "^6.3.1",
     "fps": "0.0.3",
     "normalize.css": "^8.0.1",
     "pixi-viewport": "^4.18.1",
-    "pixi.js": "^5.3.3"
+    "pixi.js": "^5.3.3",
+    "terser-webpack-plugin": "^5.0.3"
   }
 }
