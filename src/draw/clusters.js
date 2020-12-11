@@ -6,9 +6,9 @@ import { group } from 'd3-array'
 export default () => {
 
     const stage = new PIXI.Graphics()
-    s.pixi.addChild(stage)
-
     stage.interactiveChildren = false
+    stage.name = 'clusters'
+    s.pixi.addChild(stage)
 
     const clusters = group(s.nodes, n => n.cluster)
 

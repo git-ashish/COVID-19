@@ -5,10 +5,10 @@ let index = []
 
 export default () => {
 
-    const tokens = new PIXI.Graphics()
-    tokens.interactiveChildren = false
-    stage = s.pixi.addChild(tokens)
+    const stage = new PIXI.Graphics()
     stage.name = 'keywords_distant'
+    stage.interactiveChildren = false
+    s.pixi.addChild(stage)
 
     s.triplets.forEach(triplet => {
 

@@ -90,23 +90,27 @@ Promise.all([
     const scaleX = window.innerWidth / width
     const scaleY = window.innerHeight / height
 
-    const printing = false // costant for export canvas
+    // Scale for saving PNG
+
+    const printing = false
     let scale = scaleX < scaleY ? scaleX : scaleY
     scale = printing ? scale * 10 : scale
 
-    const zoomMin = scale * .8 // reduction is to create a margin
-    const zoomMax = 4
+    // Zoom Min and Max
 
-    // Set vieport
+    s.zoomMin = scale * .8 // reduction is to create a margin
+    s.zoomMax = 4
+
+    // Vieport
 
     s.pixi.drag().pinch().wheel().decelerate()
-        .clampZoom({ minScale: zoomMin, maxScale: zoomMax })
+        .clampZoom({ minScale: s.zoomMin, maxScale: s.zoomMax })
         .setTransform(window.innerWidth / 2, window.innerHeight / 2, scale, scale)
 
     // Transparency on zoom
 
-    const zoomOut = scaleLinear().domain([zoomMin, 2]).range([1, 0])
-    const zoomIn = scaleLinear().domain([zoomMin, 2]).range([0, 1])
+    const zoomOut = scaleLinear().domain([s.zoomMin, 2]).range([1, 0]) // Visible when zooming out
+    const zoomIn = scaleLinear().domain([s.zoomMin, 2]).range([0, 1]) // Visible when zooming in
 
     s.pixi.on('zoomed', e => {
         const scale = e.viewport.lastViewport.scaleX
@@ -116,10 +120,9 @@ Promise.all([
         e.viewport.children.find(child => child.name == 'keywords_distant').alpha = zoomOut(scale)
     })
 
-    // Font Loading and Rendering
+    // Start function
 
     const onFontLoad = (() => {
-
         background()
         links()
         contours()
@@ -127,27 +130,29 @@ Promise.all([
         keywords_close()
         keywords_distant()
         // clusters()
-
         fps()
         search()
-
     })
+
+    // Font loader
 
     s.app.loader
         .add('Arial', arialXML)
         .load(onFontLoad)
 
-    // Settings on the Interface
+    // Prevent pinch gesture in Chrome
 
     window.onresize = function () {
-        s.pixi.resize() // Prevent pinch gesture in Chrome
+        s.pixi.resize()
     }
 
+    // Prevent wheel interference
+
     window.addEventListener('wheel', e => {
-        e.preventDefault() // Prevent wheel interference
+        e.preventDefault()
     }, { passive: false })
 
-    // Export PNG
+    // Code to save PNG
 
     // s.app.renderer.extract.canvas(s.app.stage).toBlob((b) => {
     //     const a = document.createElement('a')

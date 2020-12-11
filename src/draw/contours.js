@@ -11,10 +11,9 @@ const thresholds = 30
 export default () => {
 
     const stage = new PIXI.Graphics()
+    stage.interactiveChildren = false
     stage.name = 'contours'
     s.pixi.addChild(stage)
-    
-    stage.interactiveChildren = false
 
     const extX = extent(s.nodes, d => d.x)
     const extY = extent(s.nodes, d => d.y)

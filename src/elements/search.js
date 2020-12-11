@@ -13,6 +13,9 @@ export default () => {
     // The autoComplete.js Engine instance creator
 
     const autoCompletejs = new autoComplete({
+
+        // Data declaration
+
         data: {
             src: async () => {
                 return s.nodes.reduce((array, { name, x, y }) => {
@@ -30,6 +33,9 @@ export default () => {
             // key: ["food", "cities", "animals"],
             cache: false
         },
+
+        // Sort
+
         sort: (a, b) => {
             if (a.match < b.match) return -1
             if (a.match > b.match) return 1
@@ -72,32 +78,29 @@ export default () => {
             const key = feedback.selection.key
             const node = feedback.selection.value
             const { x, y, name } = node
+            const center = { x: s.pixi.center.x, y: s.pixi.center.y }
 
             document.querySelector("#autoComplete").value = name
 
-            const zoomMin = .3
-            const zoomMax = 5
+            // Zooming from distant to close
 
             const zoomIn = () => s.pixi.animate({
-                scale: zoomMax,
+                scale: s.zoomMax,
                 position: new PIXI.Point(x, y),
                 time: 2000,
                 ease: 'easeInOutSine',
             })
 
-            const center = {
-                x: s.pixi.center.x,
-                y: s.pixi.center.y
-            }
+            // Zooming from close to close
 
             const zoomOutIn = () => s.pixi.animate({
-                scale: zoomMin,
+                scale: s.zoomMin,
                 position: new PIXI.Point((x + center.x) / 2, (y + center.y) / 2),
                 time: 2000,
                 ease: 'easeInOutSine',
                 callbackOnComplete: () => {
                     s.pixi.animate({
-                        scale: zoomMax,
+                        scale: s.zoomMax,
                         position: new PIXI.Point(x, y),
                         time: 2000,
                         ease: 'easeInOutSine',
