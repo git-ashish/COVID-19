@@ -78,13 +78,13 @@ export default () => {
             const key = feedback.selection.key
             const node = feedback.selection.value
             const { x, y, name } = node
-            const center = { x: s.pixi.center.x, y: s.pixi.center.y }
+            const center = { x: s.viewport.center.x, y: s.viewport.center.y }
 
             document.querySelector("#autoComplete").value = name
 
             // Zooming from distant to close
 
-            const zoomIn = () => s.pixi.animate({
+            const zoomIn = () => s.viewport.animate({
                 scale: s.zoomMax,
                 position: new PIXI.Point(x, y),
                 time: 2000,
@@ -93,13 +93,13 @@ export default () => {
 
             // Zooming from close to close
 
-            const zoomOutIn = () => s.pixi.animate({
+            const zoomOutIn = () => s.viewport.animate({
                 scale: s.zoomMin,
                 position: new PIXI.Point((x + center.x) / 2, (y + center.y) / 2),
                 time: 2000,
                 ease: 'easeInOutSine',
                 callbackOnComplete: () => {
-                    s.pixi.animate({
+                    s.viewport.animate({
                         scale: s.zoomMax,
                         position: new PIXI.Point(x, y),
                         time: 2000,
@@ -108,7 +108,7 @@ export default () => {
                 }
             })
 
-            if (s.pixi.scale.x < 1)
+            if (s.viewport.scale.x < 1)
                 zoomIn()
             else
                 zoomOutIn()

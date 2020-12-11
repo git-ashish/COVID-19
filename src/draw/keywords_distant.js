@@ -8,7 +8,7 @@ export default () => {
     const stage = new PIXI.Graphics()
     stage.name = 'keywords_distant'
     stage.interactiveChildren = false
-    s.pixi.addChild(stage)
+    s.viewport.addChild(stage)
 
     s.triplets.forEach(triplet => {
 

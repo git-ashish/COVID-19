@@ -22,7 +22,7 @@ export default () => {
     const stage = new PIXI.Graphics()
     stage.alpha = 0
     stage.name = 'nodes'
-    s.pixi.addChild(stage)
+    s.viewport.addChild(stage)
 
     s.nodes.forEach(node => {
 

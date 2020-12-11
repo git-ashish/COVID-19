@@ -75,11 +75,11 @@ Promise.all([
 
     // Create and append viewport
 
-    s.pixi = new Viewport({
+    s.viewport = new Viewport({
         screenWidth: window.innerWidth, screenHeight: window.innerHeight,
         interaction: s.app.renderer.plugins.interaction
     })
-    s.app.stage.addChild(s.pixi)
+    s.app.stage.addChild(s.viewport)
 
     // Set scales
 
@@ -103,7 +103,7 @@ Promise.all([
 
     // Vieport
 
-    s.pixi.drag().pinch().wheel().decelerate()
+    s.viewport.drag().pinch().wheel().decelerate()
         .clampZoom({ minScale: s.zoomMin, maxScale: s.zoomMax })
         .setTransform(window.innerWidth / 2, window.innerHeight / 2, scale, scale)
 
@@ -112,7 +112,7 @@ Promise.all([
     const zoomOut = scaleLinear().domain([s.zoomMin, 2]).range([1, 0]) // Visible when zooming out
     const zoomIn = scaleLinear().domain([s.zoomMin, 2]).range([0, 1]) // Visible when zooming in
 
-    s.pixi.on('zoomed', e => {
+    s.viewport.on('zoomed', e => {
         const scale = e.viewport.lastViewport.scaleX
         e.viewport.children.find(child => child.name == 'contours').alpha = zoomOut(scale)
         e.viewport.children.find(child => child.name == 'nodes').alpha = zoomIn(scale)
@@ -143,7 +143,7 @@ Promise.all([
     // Prevent pinch gesture in Chrome
 
     window.onresize = function () {
-        s.pixi.resize()
+        s.viewport.resize()
     }
 
     // Prevent wheel interference

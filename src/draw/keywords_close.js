@@ -6,7 +6,7 @@ export default () => {
     stage.alpha = 0
     stage.name = 'keywords_close'
     stage.interactiveChildren = false
-    s.pixi.addChild(stage)
+    s.viewport.addChild(stage)
 
     const lineHeight = 5
     const items = 3

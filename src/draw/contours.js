@@ -13,7 +13,7 @@ export default () => {
     const stage = new PIXI.Graphics()
     stage.interactiveChildren = false
     stage.name = 'contours'
-    s.pixi.addChild(stage)
+    s.viewport.addChild(stage)
 
     const extX = extent(s.nodes, d => d.x)
     const extY = extent(s.nodes, d => d.y)

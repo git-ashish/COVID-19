@@ -8,7 +8,7 @@ export default () => {
     const stage = new PIXI.Graphics()
     stage.interactiveChildren = false
     stage.name = 'clusters'
-    s.pixi.addChild(stage)
+    s.viewport.addChild(stage)
 
     const clusters = group(s.nodes, n => n.cluster)
 

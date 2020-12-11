@@ -5,7 +5,7 @@ export default () => {
     const stage = new PIXI.Graphics()
     stage.interactiveChildren = false
     stage.alpha = .05
-    s.pixi.addChild(stage)
+    s.viewport.addChild(stage)
 
     s.links.filter(l => l.value > .2)
         .forEach(({ source, target, value }) => {

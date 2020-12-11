@@ -28,6 +28,6 @@ export default () => {
     sprite.position = new PIXI.Point(-size / 2, -size / 2)
     sprite.interactiveChildren = false
 
-    s.pixi.addChild(sprite)
+    s.viewport.addChild(sprite)
 
 }
