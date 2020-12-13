@@ -97,14 +97,14 @@ Promise.all([
 
     // Zoom Min and Max
 
-    s.zoomMin = scale * .8 // reduction is to create a margin
+    s.zoomMin = scale * .9 // reduction is to create a margin
     s.zoomMax = 4
 
     // Vieport
 
     s.viewport.drag().pinch().wheel().decelerate()
         .clampZoom({ minScale: s.zoomMin, maxScale: s.zoomMax })
-        .setTransform(window.innerWidth / 2, window.innerHeight / 2, scale, scale)
+        .setTransform(window.innerWidth / 2, window.innerHeight / 2, s.zoomMin, s.zoomMin)
 
     // Transparency on zoom
 
