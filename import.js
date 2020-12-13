@@ -4,7 +4,6 @@ const fs = require('fs')
 const csv = require('csv-parser')
 const accents = require('remove-accents')
 const stringify = require("json-stringify-pretty-compact")
-const { resolveCname, resolve6 } = require('dns')
 
 // Time counter
 
@@ -16,7 +15,7 @@ const results = []
 fs.createReadStream('./data/metadata.csv').pipe(csv())
     .on('data', (data) => results.push(data))
     .on('end', () => parse(results))
- 
+
 // Parsing
 
 const parse = records => {
@@ -30,6 +29,7 @@ const parse = records => {
         // Filter
 
         if (!record.abstract.includes('COVID-19') || !record.title.includes('COVID-19')) return records
+        if (!record.doi) return records
 
         // Clean authors
 
@@ -73,7 +73,7 @@ const parse = records => {
     // Grouping by author
 
     const authors = records
-        // .slice(0, 100) // Trim for testing
+        // .slice(0, 1000) // Trim for testing
         .reduce((authors, record, i) => {
 
             if ((i % 1000) === 0) console.log('Grouping record #', records.length - i)
@@ -108,7 +108,7 @@ const parse = records => {
             record.authors.forEach(name => {
                 const found = authors.find(a => a.name === name)
                 if (found) update(found)
-                else add(found)
+                else add(name)
             })
 
             return authors

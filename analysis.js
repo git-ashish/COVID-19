@@ -26,9 +26,8 @@ const analysis = authors => {
 
     // Reduce authors
 
-    const maxDocs = 4
+    const maxDocs = 3
     const nodes = authors.filter(a => a.docs >= maxDocs)
-
 
     // a.docs >= 5
     //     nodes.json : 2,640,649kb for 2995 authors
