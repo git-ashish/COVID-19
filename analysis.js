@@ -26,29 +26,13 @@ const analysis = authors => {
 
     // Reduce authors
 
-    const maxDocs = 3
+    const maxDocs = 5
     const nodes = authors.filter(a => a.docs >= maxDocs)
 
-    // a.docs >= 5
-    //     nodes.json : 2,640,649kb for 2995 authors
-    //     links.json : 1,258,690kb for 8080 links
-    //   maxLinkValue : 4311
-    //   minLinkValue : 277
-    // Time computed 0h 1m 25s 18ms
-
-    // a.docs >= 4
-    //     nodes.json : 5,261,134kb for 6023 authors
-    //     links.json : 17,977,092kb for 63447 links
-    //   maxLinkValue : 4779
-    //   minLinkValue : 128
-    // Time computed 0h 5m 59s 518ms
-
-    // a.docs >= 1
-    //     nodes.json : 60,501,825kb for 81459 authors
-    //     links.json : 100,121,619kb for 629052 links
-    //   maxLinkValue : 11488
-    //   minLinkValue : 66
-    // Time computed 8h 32m 25s 533ms
+    //     nodes.json : 3,768,648kb for 3297 authors
+    //     links.json : 1,037,226kb for 12078 links
+    //   maxLinkValue : 2686
+    //   minLinkValue : 164
 
 
     // Tokenizer
@@ -358,7 +342,7 @@ const analysis = authors => {
         }
 
         // Sort triplets by first value
-        
+
         const compare = (a, b) => {
             if (a.tokens[0][1] > b.tokens[0][1]) return -1
             if (b.tokens[0][1] > a.tokens[0][1]) return 1

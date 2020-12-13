@@ -27,13 +27,13 @@ export function mouseover(node) {
 
     // Nationality
 
-    focus.append('p').html(space)
-    focus.append('h3').html('Co-author Nationalities')
-    focus.append('p').html(line)
-    Object.entries(node.nationalities).sort().forEach(([key, value], i) => {
-        const blocks = block.repeat(value)
-        focus.append('p').html(`${blocks} &nbsp; ${key}`)
-    })
+    // focus.append('p').html(space)
+    // focus.append('h3').html('Co-author Nationalities')
+    // focus.append('p').html(line)
+    // Object.entries(node.nationalities).sort().forEach(([key, value], i) => {
+    //     const blocks = block.repeat(value)
+    //     focus.append('p').html(`${blocks} &nbsp; ${key}`)
+    // })
 
     // Years
 
