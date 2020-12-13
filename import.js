@@ -15,7 +15,7 @@ const results = []
 fs.createReadStream('./data/metadata.csv').pipe(csv())
     .on('data', (data) => results.push(data))
     .on('end', () => parse(results))
-
+ 
 // Parsing
 
 const parse = records => {
