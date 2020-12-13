@@ -4,6 +4,7 @@ const fs = require('fs')
 const csv = require('csv-parser')
 const accents = require('remove-accents')
 const stringify = require("json-stringify-pretty-compact")
+const { resolveCname, resolve6 } = require('dns')
 
 // Time counter
 

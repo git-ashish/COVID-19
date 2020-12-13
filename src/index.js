@@ -5,7 +5,7 @@ import './constant/index.css'
 
 // Libraries
 
-import { json, xml } from 'd3'
+import { json, xml, image, blob } from 'd3'
 
 
 // Data
@@ -29,7 +29,7 @@ import keywords_close from './draw/keywords_close.js'
 import keywords_distant from './draw/keywords_distant.js'
 import nodes from './draw/nodes.js'
 
-import { Application } from 'pixi.js'
+import { Application, BitmapFont, Texture } from 'pixi.js'
 import { Viewport } from 'pixi-viewport'
 import { extent, scaleLinear } from 'd3'
 
@@ -50,10 +50,11 @@ window.s = {
 Promise.all([
     json(linksJSON),
     json(nodesJSON),
-    json(tripletsJSON)
-    // xml(arialXML)
+    json(tripletsJSON),
+    xml(arialXML),
+    image(arialPNG),
 
-]).then(([linksData, nodesData, tripletsData]) => {
+]).then(([linksData, nodesData, tripletsData, xml, png]) => {
 
     s.links = linksData; console.log('links', s.links.length)
     s.nodes = nodesData; console.log('nodes', s.nodes.length)
@@ -119,26 +120,23 @@ Promise.all([
         e.viewport.children.find(child => child.name == 'keywords_distant').alpha = zoomOut(scale)
     })
 
-    // Start function
-
-    const onFontLoad = (() => {
-        background()
-        links()
-        contours()
-        nodes()
-        keywords_close()
-        keywords_distant()
-        // clusters()
-        fps()
-        search()
-        // stats()
-    })
-
     // Font loader
+    
+    BitmapFont.install(xml, Texture.from(png))
 
-    s.app.loader
-        .add('Arial', arialXML)
-        .load(onFontLoad)
+    /**
+     * Rendering
+     */
+
+    background()
+    links()
+    contours()
+    nodes()
+    keywords_close()
+    keywords_distant()
+    // clusters()
+    fps()
+    search()
 
     // Prevent pinch gesture in Chrome
 
