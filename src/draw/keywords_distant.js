@@ -18,7 +18,7 @@ export default () => {
         const text = new BitmapText(
             token[0][0],
             {
-                fontName: 'Arial',
+                fontName: 'Lato',
                 fontSize: '64',
                 fill: 0xFEDD00,
                 align: 'center',

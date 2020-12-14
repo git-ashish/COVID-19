@@ -33,8 +33,8 @@ import { Application, BitmapFont, Texture } from 'pixi.js'
 import { Viewport } from 'pixi-viewport'
 import { extent, scaleLinear } from 'd3'
 
-import arialXML from './constant/arial.xml'
-import arialPNG from './constant/arial.png'
+import arialXML from './constant/Lato.fnt'
+import arialPNG from './constant/Lato.png'
 
 // Global variables
 

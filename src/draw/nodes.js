@@ -49,7 +49,7 @@ export default () => {
         node.text = new BitmapText(
             `${nA}\n${nB}`,
             {
-                fontName: 'Arial',
+                fontName: 'Lato',
                 fontSize: '21',
                 fill: color.off,
                 align: 'center',

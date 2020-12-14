@@ -48716,7 +48716,7 @@ const thresholds = 30;
     const y = triplet.position[1];
     tokens.forEach(([key, value], i) => {
       const text = new BitmapText(key, {
-        fontName: 'Arial',
+        fontName: 'Lato',
         fontSize: '4',
         tint: 0x666666,
         align: 'center'
@@ -48739,7 +48739,7 @@ let keywords_distant_index = [];
     const x = triplet.position[0];
     const y = triplet.position[1];
     const text = new BitmapText(token[0][0], {
-      fontName: 'Arial',
+      fontName: 'Lato',
       fontSize: '64',
       fill: 0xFEDD00,
       align: 'center'
@@ -48854,7 +48854,7 @@ const nodes_color = {
     const scale = .2;
     const [nA, nB] = splitInTwo(node.name);
     node.text = new BitmapText(`${nA}\n${nB}`, {
-      fontName: 'Arial',
+      fontName: 'Lato',
       fontSize: '21',
       fill: nodes_color.off,
       align: 'center'
@@ -52782,10 +52782,10 @@ class Viewport extends Container {
 
 //# sourceMappingURL=viewport.es.js.map
 
-;// CONCATENATED MODULE: ./src/constant/arial.xml
-/* harmony default export */ const arial = (__webpack_require__.p + "arial.xml");
-;// CONCATENATED MODULE: ./src/constant/arial.png
-/* harmony default export */ const constant_arial = (__webpack_require__.p + "arial.png");
+;// CONCATENATED MODULE: ./src/constant/Lato.fnt
+/* harmony default export */ const Lato = (__webpack_require__.p + "Lato.fnt");
+;// CONCATENATED MODULE: ./src/constant/Lato.png
+/* harmony default export */ const constant_Lato = (__webpack_require__.p + "Lato.png");
 ;// CONCATENATED MODULE: ./src/index.js
 // CSS
 
@@ -52820,7 +52820,7 @@ window.s = {
   tokens: []
 }; // Start
 
-Promise.all([json(links), json(data_nodes), json(triplets), xml(arial), src_image(constant_arial)]).then(([linksData, nodesData, tripletsData, xml, png]) => {
+Promise.all([json(links), json(data_nodes), json(triplets), xml(Lato), src_image(constant_Lato)]).then(([linksData, nodesData, tripletsData, xml, png]) => {
   s.links = linksData;
   console.log('links', s.links.length);
   s.nodes = nodesData;

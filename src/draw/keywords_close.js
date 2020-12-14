@@ -23,7 +23,7 @@ export default () => {
             const text = new BitmapText(
                 key,
                 {
-                    fontName: 'Arial',
+                    fontName: 'Lato',
                     fontSize: '4',
                     tint: 0x666666,
                     align: 'center',
