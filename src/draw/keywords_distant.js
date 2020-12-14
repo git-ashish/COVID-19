@@ -39,7 +39,7 @@ export default () => {
 
             const l1 = index[i]
             const l2 = text
-            const margin = 50 // Important to correct shoerter height
+            const margin = 30 // Important to correct shorter height
 
             if (!(l2.x > l1.x + l1.width + margin
                 || l2.x + l2.width + margin < l1.x

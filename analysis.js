@@ -44,18 +44,23 @@ const analysis = authors => {
     nodes.forEach((node, i) => {
         console.log('Tokenizing author #', i)
         node.tokens = tokenizer.tokenize(node.text.toLowerCase())
+        node.tokens = node.tokens.filter(token => token.length > 4 && token.length < 20)
+        node.tokens = node.tokens.filter(token => !token.includes('-'))
+        node.tokens = node.tokens.filter(token => !token.includes('['))
+        node.tokens = node.tokens.filter(token => !token.includes(']'))
         delete node.text
     })
 
     // Singularize
 
     const inflector = new natural.NounInflector()
-    const safeList = ['sars', 'trans', 'recsars', 'facs', 'mers', 'aids']
+    const safeList = ['']
 
     nodes.forEach((node, i) => {
         console.log('Singularizing author #', i)
         node.tokens = node.tokens.map(t => {
-            if ((safeList.includes(t) && t.length > 4) || /us$/.test(t) || /is$/.test(t))
+            const length = t.length
+            if ((safeList.includes(t)) || /us$/.test(t) || /is$/.test(t))
                 return t
             else
                 return inflector.singularize(t)
@@ -360,10 +365,14 @@ const analysis = authors => {
 
         // Clean links and nodes
 
+        function roundToTwo(num) {
+            return +(Math.round(num + "e+2") + "e-2");
+        }
+
         links = links.reduce((links, link) => {
             links.push({
                 // index: link.index,
-                value: link.value,
+                value: roundToTwo(link.value),
                 source: { x: Math.round(link.source.x), y: Math.round(link.source.y) },
                 target: { x: Math.round(link.target.x), y: Math.round(link.target.y) },
                 // tokens: link.tokens,
