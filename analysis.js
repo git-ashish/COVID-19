@@ -108,7 +108,7 @@ const analysis = authors => {
     // Set links
 
     const links = []
-    const minCommonTokens = 7
+    const minCommonTokens = 8
 
     for (let i1 = 0; i1 < nodes.length; i1++) {
 

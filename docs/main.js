@@ -48745,7 +48745,7 @@ let keywords_distant_index = [];
       align: 'center'
     });
     const value = token[0][1];
-    const base = 120;
+    const base = 200;
     const magnitude = .004;
     text.scale.set((value + base) * magnitude);
     text.position.set(x - text.width / 2, y - text.height / 2); // Check overlapping
@@ -48793,14 +48793,14 @@ function mouseover(node) {
     const blocks = block.repeat(value / 10);
     focus.append('p').html(`${blocks} &nbsp; ${key}`);
   }); // Nationality
-  // focus.append('p').html(space)
-  // focus.append('h3').html('Co-author Nationalities')
-  // focus.append('p').html(line)
-  // Object.entries(node.nationalities).sort().forEach(([key, value], i) => {
-  //     const blocks = block.repeat(value)
-  //     focus.append('p').html(`${blocks} &nbsp; ${key}`)
-  // })
-  // Years
+
+  focus.append('p').html(space);
+  focus.append('h3').html('Co-author Nationalities');
+  focus.append('p').html(line);
+  Object.entries(node.nationalities).sort().forEach(([key, value], i) => {
+    const blocks = block.repeat(value);
+    focus.append('p').html(`${blocks} &nbsp; ${key}`);
+  }); // Years
 
   focus.append('p').html(space);
   focus.append('h3').html('Publication Years');
