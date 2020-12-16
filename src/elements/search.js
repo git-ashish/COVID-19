@@ -8,8 +8,6 @@ export default () => {
     //     console.log(event)
     // })
 
-    const placeholder = 'Search'
-
     // The autoComplete.js Engine instance creator
 
     const autoCompletejs = new autoComplete({
@@ -18,59 +16,25 @@ export default () => {
 
         data: {
             src: async () => {
-                return s.nodes.reduce((array, { name, x, y }) => {
-
+                return s.nodes.reduce((array, { tokens, name, x, y }) => {
                     array.push({
+                        token: `${Object.keys(tokens)[0]} (${Object.values(tokens)[0]})`,
                         name: name,
-                        x: x,
-                        y: y
+                        x: x, y: y,
                     })
-
                     return array
                 }, [])
             },
-            key: ["name"],
-            // key: ["food", "cities", "animals"],
-            cache: false
+            key: ['token', 'name'],
+            cache: true
         },
-
-        // Sort
-
         sort: (a, b) => {
             if (a.match < b.match) return -1
             if (a.match > b.match) return 1
             return 0
         },
-        placeHolder: placeholder,
-        selector: "#autoComplete",
-        threshold: 0,
-        debounce: 0,
-        // searchEngine: "strict",
-        searchEngine: "loose",
-        highlight: true,
-        maxResults: 10,
-        resultsList: {
-            render: true,
-            container: source => {
-                source.setAttribute("id", "autoComplete_list")
-            },
-            destination: document.querySelector("#autoComplete"),
-            position: "afterend",
-            element: "ul"
-        },
-        resultItem: {
-            content: (data, source) => {
-                source.innerHTML = data.match
-            },
-            element: "li"
-        },
-        noResults: () => {
-            const result = document.createElement("li")
-            result.setAttribute("class", "no_result")
-            result.setAttribute("tabindex", "1")
-            result.innerHTML = "No Results"
-            document.querySelector("#autoComplete_list").appendChild(result)
-        },
+        placeHolder: 'Search',
+        maxResults: 20,
         onSelection: feedback => {
 
             console.log(feedback)

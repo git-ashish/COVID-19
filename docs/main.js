@@ -348,7 +348,7 @@ if (true) {
 /***/ 194:
 /***/ (function(module) {
 
-var a,b;a=this,b=function(){"use strict";function i(e,t){for(var n=0;n<t.length;n++){var i=t[n];i.enumerable=i.enumerable||!1,i.configurable=!0,"value"in i&&(i.writable=!0),Object.defineProperty(e,i.key,i)}}function s(e){return e.innerHTML=""}function d(t,e,n,i,o,r){i({event:t,query:e instanceof HTMLInputElement?e.value:e.innerHTML,matches:o.matches,results:o.list.map(function(e){return e.value}),selection:o.list.find(function(e){return t.keyCode===f?e.index===Number(r.getAttribute(a)):"mousedown"===t.type?e.index===Number(t.currentTarget.getAttribute(a)):void 0})}),s(n)}function e(e,t){t=t||{bubbles:!1,cancelable:!1,detail:void 0};var n=document.createEvent("CustomEvent");return n.initCustomEvent(e,t.bubbles,t.cancelable,t.detail),n}var a="data-id",n="autoComplete_list",l="autoComplete_result",t="autoComplete_highlighted",h="autoComplete_selected",f=13,v=38,m=40,Q=function(e){return"string"==typeof e?document.querySelector(e):e()},U=function(e){var t=document.createElement(e.element);return t.setAttribute("id",n),e.container&&e.container(t),e.destination.insertAdjacentElement(e.position,t),t},u=function(e){return"<span class=".concat(t,">").concat(e,"</span>")},c=function(e,o,r){var s=document.createDocumentFragment();o.forEach(function(e,t){var n=document.createElement(r.element),i=o[t].index;n.setAttribute(a,i),n.setAttribute("class",l),r.content?r.content(e,n):n.innerHTML=e.match||e,s.appendChild(n)}),e.appendChild(s)},p=function(t,n,i,o){function r(e){c.classList.remove(h),a=1===e?c.nextSibling:c.previousSibling}function s(e){(c=e).classList.add(h)}var a,l=n.childNodes,u=l.length-1,c=void 0;t.onkeydown=function(e){if(0<l.length)switch(e.keyCode){case v:c?(r(0),s(a||l[u])):s(l[u]);break;case m:c?(r(1),s(a||l[0])):s(l[0]);break;case f:c&&d(e,t,n,i,o,c)}},l.forEach(function(e){e.onmousedown=function(e){return d(e,t,n,i,o)}})},g=s;e.prototype=window.Event.prototype;var y={CustomEventWrapper:"function"==typeof window.CustomEvent&&window.CustomEvent||e,initElementClosestPolyfill:function(){Element.prototype.matches||(Element.prototype.matches=Element.prototype.msMatchesSelector||Element.prototype.webkitMatchesSelector),Element.prototype.closest||(Element.prototype.closest=function(e){var t=this;do{if(t.matches(e))return t;t=t.parentElement||t.parentNode}while(null!==t&&1===t.nodeType);return null})}};return function(){function K(e){!function(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}(this,K);var t=e.selector,n=void 0===t?"#autoComplete":t,i=e.data,o=i.key,r=i.src,s=i.cache,a=void 0===s||s,l=e.query,u=e.trigger,c=(u=void 0===u?{}:u).event,d=void 0===c?["input"]:c,h=u.condition,f=void 0!==h&&h,v=e.searchEngine,m=void 0===v?"strict":v,p=e.threshold,g=void 0===p?0:p,y=e.debounce,b=void 0===y?0:y,E=e.resultsList,w=(E=void 0===E?{}:E).render,C=void 0!==w&&w,L=E.container,k=void 0!==L&&L,x=E.destination,S=E.position,T=void 0===S?"afterend":S,M=E.element,R=void 0===M?"ul":M,q=E.navigation,H=void 0!==q&&q,A=e.sort,P=void 0!==A&&A,I=e.placeHolder,j=e.maxResults,N=void 0===j?5:j,_=e.resultItem,V=(_=void 0===_?{}:_).content,W=void 0!==V&&V,D=_.element,F=void 0===D?"li":D,O=e.noResults,z=e.highlight,B=void 0!==z&&z,G=e.onSelection,J=C?U({container:k,destination:x||Q(n),position:T,element:R}):null;this.selector=n,this.data={src:function(){return"function"==typeof r?r():r},key:o,cache:a},this.query=l,this.trigger={event:d,condition:f},this.searchEngine="loose"===m?"loose":"function"==typeof m?m:"strict",this.threshold=g,this.debounce=b,this.resultsList={render:C,view:J,navigation:H},this.sort=P,this.placeHolder=I,this.maxResults=N,this.resultItem={content:W,element:F},this.noResults=O,this.highlight=B,this.onSelection=G,this.init()}return function(e,t,n){t&&i(e.prototype,t),n&&i(e,n)}(K,[{key:"search",value:function(e,t){var n=t.toLowerCase();if("loose"===this.searchEngine){e=e.replace(/ /g,"");for(var i=[],o=0,r=0;r<n.length;r++){var s=t[r];o<e.length&&n[r]===e[o]&&(s=this.highlight?u(s):s,o++),i.push(s)}return o===e.length&&i.join("")}if(n.includes(e))return e=new RegExp("".concat(e),"i").exec(t),this.highlight?t.replace(e,u(e)):t}},{key:"listMatchedResults",value:function(n){var u=this;return new Promise(function(e){var l=[];n.filter(function(i,o){function e(e){var t=e?i[e]:i;if(t){var n="function"==typeof u.searchEngine?u.searchEngine(u.queryValue,t):u.search(u.queryValue,t);n&&e?l.push({key:e,index:o,match:n,value:i}):n&&!e&&l.push({index:o,match:n,value:i})}}if(u.data.key){var t=!0,n=!1,r=void 0;try{for(var s,a=u.data.key[Symbol.iterator]();!(t=(s=a.next()).done);t=!0){e(s.value)}}catch(e){n=!0,r=e}finally{try{t||null==a.return||a.return()}finally{if(n)throw r}}}else e()});var t=u.sort?l.sort(u.sort).slice(0,u.maxResults):l.slice(0,u.maxResults);return e({matches:l.length,list:t})})}},{key:"ignite",value:function(){var a=this,l=Q(this.selector);this.placeHolder&&l.setAttribute("placeholder",this.placeHolder);function t(t){Promise.resolve(a.data.cache?a.dataStream:a.data.src()).then(function(e){a.dataStream=e,function(t){function n(e,t){l.dispatchEvent(new y.CustomEventWrapper("autoComplete",{bubbles:!0,detail:{event:e,input:i,query:o,matches:t?t.matches:null,results:t?t.list:null},cancelable:!0}))}var i=l instanceof HTMLInputElement||l instanceof HTMLTextAreaElement?l.value.toLowerCase():l.innerHTML.toLowerCase(),o=a.queryValue=a.query&&a.query.manipulate?a.query.manipulate(i):i,e=a.resultsList.render,r=a.trigger.condition?a.trigger.condition(o):o.length>a.threshold&&o.replace(/ /g,"").length;if(e){var s=a.resultsList.view;g(s);r?a.listMatchedResults(a.dataStream,t).then(function(e){n(t,e),a.resultsList.render&&(0===e.list.length&&a.noResults?a.noResults():(c(s,e.list,a.resultItem),a.onSelection&&(a.resultsList.navigation?a.resultsList.navigation(t,l,s,a.onSelection,e):p(l,s,a.onSelection,e))))}):n(t)}else!e&&r&&a.listMatchedResults(a.dataStream,t).then(function(e){n(t,e)})}(t)})}this.trigger.event.forEach(function(e){l.addEventListener(e,function(n,i){var o;return function(){var e=this,t=arguments;clearTimeout(o),o=setTimeout(function(){return n.apply(e,t)},i)}}(function(e){return t(e)},a.debounce))})}},{key:"init",value:function(){var t=this;this.data.cache?Promise.resolve(this.data.src()).then(function(e){t.dataStream=e,t.ignite()}):this.ignite(),y.initElementClosestPolyfill()}}]),K}()}, true?module.exports=b():0;
+var a,b;a=this,b=function(){"use strict";function e(e,t){for(var n=0;n<t.length;n++){var i=t[n];i.enumerable=i.enumerable||!1,i.configurable=!0,"value"in i&&(i.writable=!0),Object.defineProperty(e,i.key,i)}}function t(t,e){var n,i=Object.keys(t);return Object.getOwnPropertySymbols&&(n=Object.getOwnPropertySymbols(t),e&&(n=n.filter(function(e){return Object.getOwnPropertyDescriptor(t,e).enumerable})),i.push.apply(i,n)),i}function c(i){for(var e=1;e<arguments.length;e++){var r=null!=arguments[e]?arguments[e]:{};e%2?t(Object(r),!0).forEach(function(e){var t,n;t=i,e=r[n=e],n in t?Object.defineProperty(t,n,{value:e,enumerable:!0,configurable:!0,writable:!0}):t[n]=e}):Object.getOwnPropertyDescriptors?Object.defineProperties(i,Object.getOwnPropertyDescriptors(r)):t(Object(r)).forEach(function(e){Object.defineProperty(i,e,Object.getOwnPropertyDescriptor(r,e))})}return i}function a(e,t){(null==t||t>e.length)&&(t=e.length);for(var n=0,i=new Array(t);n<t;n++)i[n]=e[n];return i}function l(e,t){var n;if("undefined"==typeof Symbol||null==e[Symbol.iterator]){if(Array.isArray(e)||(n=function(e,t){if(e){if("string"==typeof e)return a(e,t);var n=Object.prototype.toString.call(e).slice(8,-1);return"Object"===n&&e.constructor&&(n=e.constructor.name),"Map"===n||"Set"===n?Array.from(e):"Arguments"===n||/^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)?a(e,t):void 0}}(e))||t&&e&&"number"==typeof e.length){n&&(e=n);var i=0,t=function(){};return{s:t,n:function(){return i>=e.length?{done:!0}:{done:!1,value:e[i++]}},e:function(e){throw e},f:t}}throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}var r,o=!0,s=!1;return{s:function(){n=e[Symbol.iterator]()},n:function(){var e=n.next();return o=e.done,e},e:function(e){s=!0,r=e},f:function(){try{o||null==n.return||n.return()}finally{if(s)throw r}}}}function u(e,t){for(var n=document.getElementsByClassName(e.resultsList.className),i=0;i<n.length;i++)t!==n[i]&&t!==e.inputField&&n[i].parentNode.removeChild(n[i]);e.inputField.removeAttribute("aria-activedescendant"),e.inputField.setAttribute("aria-expanded",!1)}function r(s,a,l){var e,t,u=(e=s,(t=document.createElement(e.resultsList.element)).setAttribute("id",e.resultsList.idName),t.setAttribute("aria-label",e.name),t.setAttribute("class",e.resultsList.className),t.setAttribute("role","listbox"),t.setAttribute("tabindex","-1"),e.resultsList.container&&e.resultsList.container(t),document.querySelector(e.resultsList.destination).insertAdjacentElement(e.resultsList.position,t),t);s.inputField.setAttribute("aria-expanded",!0);for(var n=function(t){var e,n,i,r,o=a.results[t],r=(e=o,n=t,i=s,(r=document.createElement(i.resultItem.element)).setAttribute("id","".concat(i.resultItem.className,"_").concat(n)),r.setAttribute("class",i.resultItem.className),r.setAttribute("role","option"),r.innerHTML=e.match,i.resultItem.content&&i.resultItem.content(e.value,r),r);r.addEventListener("click",function(){var e={matches:l,input:a.input,query:a.query,results:a.results,selection:c(c({},o),{},{index:t})};s.onSelection&&s.onSelection(e)}),u.appendChild(r)},i=0;i<a.results.length;i++)n(i);return u}function d(e,t,n){e.dispatchEvent(new CustomEvent(n,{bubbles:!0,detail:t,cancelable:!0}))}function o(n,r){function i(e,t,n,i){e.preventDefault(),n?o++:o--,s(t),i.inputField.setAttribute("aria-activedescendant",t[o].id),d(e.srcElement,c(c({event:e},r),{},{selection:r.results[o]}),"navigation")}var o=-1,s=function(e){if(!e)return!1;!function(e){for(var t=0;t<e.length;t++)e[t].removeAttribute("aria-selected"),e[t].classList.remove("autoComplete_selected")}(e),o>=e.length&&(o=0),o<0&&(o=e.length-1),e[o].setAttribute("aria-selected","true"),e[o].classList.add("autoComplete_selected")},a=n.resultsList.navigation||function(e){var t=document.getElementById(n.resultsList.idName);if(!t)return n.inputField.removeEventListener("keydown",a);t=t.getElementsByTagName(n.resultItem.element),27===e.keyCode?(n.inputField.value="",u(n)):40===e.keyCode||9===e.keyCode?i(e,t,!0,n):38===e.keyCode||9===e.keyCode?i(e,t,!1,n):13===e.keyCode&&(e.preventDefault(),-1<o&&t&&t[o].click())};n.inputField.addEventListener("keydown",a)}function s(o,s){for(var a=[],e=function(n){function e(e){var t=(e?i[e]:i).toString();t&&((t="function"==typeof o.searchEngine?o.searchEngine(s,t):function(e,t,n){var i=n.diacritics?t.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,""):t.toLowerCase();if("loose"===n.searchEngine){e=e.replace(/ /g,"");for(var r=[],o=0,s=0;s<i.length;s++){var a=t[s];o<e.length&&i[s]===e[o]&&(a=n.highlight?'<span class="autoComplete_highlighted">'.concat(a,"</span>"):a,o++),r.push(a)}if(o===e.length)return r.join("")}else if(i.includes(e))return e=new RegExp("".concat(e),"i").exec(t),n.highlight?t.replace(e,'<span class="autoComplete_highlighted">'.concat(e,"</span>")):t}(s,t,o))&&e?a.push({key:e,index:n,match:t,value:i}):t&&!e&&a.push({index:n,match:t,value:i}))}var i=o.data.store[n];if(o.data.key){var t,r=l(o.data.key);try{for(r.s();!(t=r.n()).done;)e(t.value)}catch(e){r.e(e)}finally{r.f()}}else e()},t=0;t<o.data.store.length;t++)e(t);return o.sort?a.sort(o.sort):a}var n,i,h;function P(e){!function(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}(this,P);var t=e.name,n=void 0===t?"Search":t,i=e.selector,r=void 0===i?"#autoComplete":i,o=e.observer,s=void 0!==o&&o,a=e.data,l=a.src,u=a.key,c=a.cache,d=void 0!==c&&c,h=a.store,f=e.query,p=e.trigger,v=(p=void 0===p?{}:p).event,m=void 0===v?["input"]:v,b=p.condition,y=void 0!==b&&b,g=e.searchEngine,k=void 0===g?"strict":g,L=e.diacritics,A=void 0!==L&&L,E=e.threshold,F=void 0===E?1:E,w=e.debounce,C=void 0===w?0:w,O=e.resultsList,N=(O=void 0===O?{}:O).render,j=void 0===N||N,x=O.container,S=void 0!==x&&x,I=O.destination,t=O.position,i=void 0===t?"afterend":t,o=O.element,c=void 0===o?"ul":o,a=O.idName,v=void 0===a?"autoComplete_list":a,p=O.className,b=void 0===p?"autoComplete_list":p,g=O.navigation,L=void 0!==g&&g,E=e.sort,w=void 0!==E&&E,N=e.placeHolder,x=e.maxResults,t=void 0===x?5:x,o=e.resultItem,a=(o=void 0===o?{}:o).content,p=void 0!==a&&a,O=o.element,g=void 0===O?"li":O,E=o.idName,x=void 0===E?"autoComplete_result":E,a=o.className,O=void 0===a?"autoComplete_result":a,E=e.noResults,o=e.highlight,a=void 0!==o&&o,o=e.feedback,e=e.onSelection;this.name=n,this.selector=r,this.observer=s,this.data={src:l,key:u,cache:d,store:h},this.query=f,this.trigger={event:m,condition:y},this.searchEngine=k,this.diacritics=A,this.threshold=F,this.debounce=C,this.resultsList={render:j,container:S,destination:I||this.selector,position:i,element:c,idName:v,className:b,navigation:L},this.sort=w,this.placeHolder=N,this.maxResults=t,this.resultItem={content:p,element:g,idName:x,className:O},this.noResults=E,this.highlight=a,this.feedback=o,this.onSelection=e,this.observer?this.preInit():this.init()}return n=P,(i=[{key:"start",value:function(e,t){var n=this,i=s(this,t),t={input:e,query:t,matches:i,results:i.slice(0,this.maxResults)};if(d(this.inputField,t,"results"),!i.length)return this.noResults?this.noResults(t,r):null;if(!this.resultsList.render)return this.feedback(t);i.length&&r(this,t,i);d(this.inputField,t,"rendered"),o(this,t),document.addEventListener("click",function(e){return u(n,e.target)})}},{key:"dataStore",value:function(){var i=this;return new Promise(function(t,n){return i.data.cache&&i.data.store?t(null):new Promise(function(e,t){return"function"==typeof i.data.src?i.data.src().then(e,t):e(i.data.src)}).then(function(e){try{return i.data.store=e,d(i.inputField,i.data.store,"fetch"),t()}catch(e){return n(e)}},n)})}},{key:"compose",value:function(){var a=this;return new Promise(function(e,t){var n,i,r,o;return o=a.inputField,n=(o instanceof HTMLInputElement||o instanceof HTMLTextAreaElement?o.value:o.innerHTML).toLowerCase(),r=n,o=a.query,i=o&&o.manipulate?o.manipulate(r):r.normalize("NFD").replace(/[\u0300-\u036f]/g,""),o=i,((r=a).trigger.condition?r.trigger.condition(o):o.length>=r.threshold&&o.replace(/ /g,"").length)?a.dataStore().then(function(e){try{return u(a),a.start(n,i),s.call(a)}catch(e){return t(e)}},t):(u(a),s.call(a));function s(){return e()}})}},{key:"init",value:function(){var e,n,i,r,t=this;this.inputField=document.querySelector(this.selector),(e=this).inputField.setAttribute("type","text"),e.inputField.setAttribute("role","combobox"),e.inputField.setAttribute("aria-haspopup",!0),e.inputField.setAttribute("aria-expanded",!1),e.inputField.setAttribute("aria-controls",e.resultsList.idName),e.inputField.setAttribute("aria-autocomplete","both"),this.placeHolder&&this.inputField.setAttribute("placeholder",this.placeHolder),this.hook=(n=function(){t.compose()},i=this.debounce,function(){var e=this,t=arguments;clearTimeout(r),r=setTimeout(function(){return n.apply(e,t)},i)}),this.trigger.event.forEach(function(e){t.inputField.removeEventListener(e,t.hook),t.inputField.addEventListener(e,t.hook)}),d(this.inputField,null,"init")}},{key:"preInit",value:function(){var o=this,s=document;new MutationObserver(function(e,t){var n,i=s.querySelector(o.selector),r=l(e);try{for(r.s();!(n=r.n()).done;){n.value;i&&(t.disconnect(),d(i,null,"connect"),o.init())}}catch(e){r.e(e)}finally{r.f()}}).observe(s,{childList:!0,subtree:!0})}},{key:"unInit",value:function(){this.inputField.removeEventListener("input",this.hook),d(this.inputField,null,"unInit")}}])&&e(n.prototype,i),h&&e(n,h),P}, true?module.exports=b():0;
 
 
 /***/ }),
@@ -2233,11 +2233,28 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 "use strict";
 
 
-module.exports = function parseURI (str, opts) {
+function parseURI (str, opts) {
+  if (!str) return undefined
+
   opts = opts || {}
 
   var o = {
-    key: ['source', 'protocol', 'authority', 'userInfo', 'user', 'password', 'host', 'port', 'relative', 'path', 'directory', 'file', 'query', 'anchor'],
+    key: [
+      'source',
+      'protocol',
+      'authority',
+      'userInfo',
+      'user',
+      'password',
+      'host',
+      'port',
+      'relative',
+      'path',
+      'directory',
+      'file',
+      'query',
+      'anchor'
+    ],
     q: {
       name: 'queryKey',
       parser: /(?:^|&)([^&=]*)=?([^&]*)/g
@@ -2261,6 +2278,8 @@ module.exports = function parseURI (str, opts) {
 
   return uri
 }
+
+module.exports = parseURI
 
 
 /***/ }),
@@ -9771,8 +9790,8 @@ var object_assign = __webpack_require__(418);
 var object_assign_default = /*#__PURE__*/__webpack_require__.n(object_assign);
 ;// CONCATENATED MODULE: ./node_modules/@pixi/polyfill/lib/polyfill.es.js
 /*!
- * @pixi/polyfill - v5.3.3
- * Compiled Tue, 04 Aug 2020 16:23:09 UTC
+ * @pixi/polyfill - v5.3.4
+ * Compiled Mon, 14 Dec 2020 19:48:09 UTC
  *
  * @pixi/polyfill is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
@@ -10012,8 +10031,8 @@ function isMobile(param) {
 //# sourceMappingURL=isMobile.js.map
 ;// CONCATENATED MODULE: ./node_modules/@pixi/settings/lib/settings.es.js
 /*!
- * @pixi/settings - v5.3.3
- * Compiled Tue, 04 Aug 2020 16:23:09 UTC
+ * @pixi/settings - v5.3.4
+ * Compiled Mon, 14 Dec 2020 19:48:09 UTC
  *
  * @pixi/settings is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
@@ -10303,8 +10322,8 @@ var earcut_default = /*#__PURE__*/__webpack_require__.n(earcut);
 var url_url = __webpack_require__(575);
 ;// CONCATENATED MODULE: ./node_modules/@pixi/constants/lib/constants.es.js
 /*!
- * @pixi/constants - v5.3.3
- * Compiled Tue, 04 Aug 2020 16:23:09 UTC
+ * @pixi/constants - v5.3.4
+ * Compiled Mon, 14 Dec 2020 19:48:09 UTC
  *
  * @pixi/constants is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
@@ -10747,8 +10766,8 @@ var MSAA_QUALITY;
 
 ;// CONCATENATED MODULE: ./node_modules/@pixi/utils/lib/utils.es.js
 /*!
- * @pixi/utils - v5.3.3
- * Compiled Tue, 04 Aug 2020 16:23:09 UTC
+ * @pixi/utils - v5.3.4
+ * Compiled Mon, 14 Dec 2020 19:48:09 UTC
  *
  * @pixi/utils is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
@@ -10786,7 +10805,7 @@ settings.RETINA_PREFIX = /@([0-9\.]+)x/;
 settings.FAIL_IF_MAJOR_PERFORMANCE_CAVEAT = true;
 
 var saidHello = false;
-var VERSION = '5.3.3';
+var VERSION = '5.3.4';
 /**
  * Skips the hello message of renderers that are created after this is run.
  *
@@ -11638,8 +11657,8 @@ function getResolutionOfUrl(url, defaultValue) {
 
 ;// CONCATENATED MODULE: ./node_modules/@pixi/math/lib/math.es.js
 /*!
- * @pixi/math - v5.3.3
- * Compiled Tue, 04 Aug 2020 16:23:09 UTC
+ * @pixi/math - v5.3.4
+ * Compiled Mon, 14 Dec 2020 19:48:09 UTC
  *
  * @pixi/math is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
@@ -13557,8 +13576,8 @@ var math_es_Transform = /** @class */ (function () {
 
 ;// CONCATENATED MODULE: ./node_modules/@pixi/display/lib/display.es.js
 /*!
- * @pixi/display - v5.3.3
- * Compiled Tue, 04 Aug 2020 16:23:09 UTC
+ * @pixi/display - v5.3.4
+ * Compiled Mon, 14 Dec 2020 19:48:09 UTC
  *
  * @pixi/display is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
@@ -15231,8 +15250,8 @@ Container.prototype.containerUpdateTransform = Container.prototype.updateTransfo
 
 ;// CONCATENATED MODULE: ./node_modules/@pixi/accessibility/lib/accessibility.es.js
 /*!
- * @pixi/accessibility - v5.3.3
- * Compiled Tue, 04 Aug 2020 16:23:09 UTC
+ * @pixi/accessibility - v5.3.4
+ * Compiled Mon, 14 Dec 2020 19:48:09 UTC
  *
  * @pixi/accessibility is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
@@ -15821,8 +15840,8 @@ var AccessibilityManager = /** @class */ (function () {
 
 ;// CONCATENATED MODULE: ./node_modules/@pixi/ticker/lib/ticker.es.js
 /*!
- * @pixi/ticker - v5.3.3
- * Compiled Tue, 04 Aug 2020 16:23:09 UTC
+ * @pixi/ticker - v5.3.4
+ * Compiled Mon, 14 Dec 2020 19:48:09 UTC
  *
  * @pixi/ticker is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
@@ -16669,8 +16688,8 @@ var TickerPlugin = /** @class */ (function () {
 
 ;// CONCATENATED MODULE: ./node_modules/@pixi/interaction/lib/interaction.es.js
 /*!
- * @pixi/interaction - v5.3.3
- * Compiled Tue, 04 Aug 2020 16:23:09 UTC
+ * @pixi/interaction - v5.3.4
+ * Compiled Mon, 14 Dec 2020 19:48:09 UTC
  *
  * @pixi/interaction is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
@@ -18873,8 +18892,8 @@ var InteractionManager = /** @class */ (function (_super) {
 
 ;// CONCATENATED MODULE: ./node_modules/@pixi/runner/lib/runner.es.js
 /*!
- * @pixi/runner - v5.3.3
- * Compiled Tue, 04 Aug 2020 16:23:09 UTC
+ * @pixi/runner - v5.3.4
+ * Compiled Mon, 14 Dec 2020 19:48:09 UTC
  *
  * @pixi/runner is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
@@ -19073,8 +19092,8 @@ Object.defineProperties(Runner.prototype, {
 
 ;// CONCATENATED MODULE: ./node_modules/@pixi/core/lib/core.es.js
 /*!
- * @pixi/core - v5.3.3
- * Compiled Tue, 04 Aug 2020 16:23:09 UTC
+ * @pixi/core - v5.3.4
+ * Compiled Mon, 14 Dec 2020 19:48:09 UTC
  *
  * @pixi/core is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
@@ -30038,8 +30057,8 @@ var BatchRenderer = BatchPluginFactory.create();
 
 ;// CONCATENATED MODULE: ./node_modules/@pixi/app/lib/app.es.js
 /*!
- * @pixi/app - v5.3.3
- * Compiled Tue, 04 Aug 2020 16:23:09 UTC
+ * @pixi/app - v5.3.4
+ * Compiled Mon, 14 Dec 2020 19:48:09 UTC
  *
  * @pixi/app is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
@@ -30315,8 +30334,8 @@ Application.registerPlugin(ResizePlugin);
 
 ;// CONCATENATED MODULE: ./node_modules/@pixi/extract/lib/extract.es.js
 /*!
- * @pixi/extract - v5.3.3
- * Compiled Tue, 04 Aug 2020 16:23:09 UTC
+ * @pixi/extract - v5.3.4
+ * Compiled Mon, 14 Dec 2020 19:48:09 UTC
  *
  * @pixi/extract is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
@@ -32886,8 +32905,8 @@ Loader.use = function LoaderUseStatic(fn) {
 
 ;// CONCATENATED MODULE: ./node_modules/@pixi/loaders/lib/loaders.es.js
 /*!
- * @pixi/loaders - v5.3.3
- * Compiled Tue, 04 Aug 2020 16:23:09 UTC
+ * @pixi/loaders - v5.3.4
+ * Compiled Mon, 14 Dec 2020 19:48:09 UTC
  *
  * @pixi/loaders is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
@@ -33209,8 +33228,8 @@ var AppLoaderPlugin = /** @class */ (function () {
 
 ;// CONCATENATED MODULE: ./node_modules/@pixi/particles/lib/particles.es.js
 /*!
- * @pixi/particles - v5.3.3
- * Compiled Tue, 04 Aug 2020 16:23:09 UTC
+ * @pixi/particles - v5.3.4
+ * Compiled Mon, 14 Dec 2020 19:48:09 UTC
  *
  * @pixi/particles is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
@@ -34021,8 +34040,8 @@ var ParticleRenderer = /** @class */ (function (_super) {
 
 ;// CONCATENATED MODULE: ./node_modules/@pixi/graphics/lib/graphics.es.js
 /*!
- * @pixi/graphics - v5.3.3
- * Compiled Tue, 04 Aug 2020 16:23:09 UTC
+ * @pixi/graphics - v5.3.4
+ * Compiled Mon, 14 Dec 2020 19:48:09 UTC
  *
  * @pixi/graphics is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
@@ -37249,8 +37268,8 @@ var graphics_es_Graphics = /** @class */ (function (_super) {
 
 ;// CONCATENATED MODULE: ./node_modules/@pixi/sprite/lib/sprite.es.js
 /*!
- * @pixi/sprite - v5.3.3
- * Compiled Tue, 04 Aug 2020 16:23:09 UTC
+ * @pixi/sprite - v5.3.4
+ * Compiled Mon, 14 Dec 2020 19:48:09 UTC
  *
  * @pixi/sprite is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
@@ -37840,8 +37859,8 @@ var Sprite = /** @class */ (function (_super) {
 
 ;// CONCATENATED MODULE: ./node_modules/@pixi/text/lib/text.es.js
 /*!
- * @pixi/text - v5.3.3
- * Compiled Tue, 04 Aug 2020 16:23:09 UTC
+ * @pixi/text - v5.3.4
+ * Compiled Mon, 14 Dec 2020 19:48:09 UTC
  *
  * @pixi/text is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
@@ -39895,8 +39914,8 @@ var Text = /** @class */ (function (_super) {
 
 ;// CONCATENATED MODULE: ./node_modules/@pixi/prepare/lib/prepare.es.js
 /*!
- * @pixi/prepare - v5.3.3
- * Compiled Tue, 04 Aug 2020 16:23:09 UTC
+ * @pixi/prepare - v5.3.4
+ * Compiled Mon, 14 Dec 2020 19:48:09 UTC
  *
  * @pixi/prepare is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
@@ -40531,8 +40550,8 @@ var TimeLimiter = /** @class */ (function () {
 
 ;// CONCATENATED MODULE: ./node_modules/@pixi/spritesheet/lib/spritesheet.es.js
 /*!
- * @pixi/spritesheet - v5.3.3
- * Compiled Tue, 04 Aug 2020 16:23:09 UTC
+ * @pixi/spritesheet - v5.3.4
+ * Compiled Mon, 14 Dec 2020 19:48:09 UTC
  *
  * @pixi/spritesheet is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
@@ -40870,8 +40889,8 @@ var SpritesheetLoader = /** @class */ (function () {
 
 ;// CONCATENATED MODULE: ./node_modules/@pixi/sprite-tiling/lib/sprite-tiling.es.js
 /*!
- * @pixi/sprite-tiling - v5.3.3
- * Compiled Tue, 04 Aug 2020 16:23:09 UTC
+ * @pixi/sprite-tiling - v5.3.4
+ * Compiled Mon, 14 Dec 2020 19:48:09 UTC
  *
  * @pixi/sprite-tiling is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
@@ -41280,8 +41299,8 @@ var TilingSpriteRenderer = /** @class */ (function (_super) {
 
 ;// CONCATENATED MODULE: ./node_modules/@pixi/mesh/lib/mesh.es.js
 /*!
- * @pixi/mesh - v5.3.3
- * Compiled Tue, 04 Aug 2020 16:23:09 UTC
+ * @pixi/mesh - v5.3.4
+ * Compiled Mon, 14 Dec 2020 19:48:09 UTC
  *
  * @pixi/mesh is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
@@ -41998,8 +42017,8 @@ var MeshGeometry = /** @class */ (function (_super) {
 
 ;// CONCATENATED MODULE: ./node_modules/@pixi/text-bitmap/lib/text-bitmap.es.js
 /*!
- * @pixi/text-bitmap - v5.3.3
- * Compiled Tue, 04 Aug 2020 16:23:09 UTC
+ * @pixi/text-bitmap - v5.3.4
+ * Compiled Mon, 14 Dec 2020 19:48:09 UTC
  *
  * @pixi/text-bitmap is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
@@ -43706,8 +43725,8 @@ var BitmapFontLoader = /** @class */ (function () {
 
 ;// CONCATENATED MODULE: ./node_modules/@pixi/filter-alpha/lib/filter-alpha.es.js
 /*!
- * @pixi/filter-alpha - v5.3.3
- * Compiled Tue, 04 Aug 2020 16:23:09 UTC
+ * @pixi/filter-alpha - v5.3.4
+ * Compiled Mon, 14 Dec 2020 19:48:09 UTC
  *
  * @pixi/filter-alpha is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
@@ -43797,8 +43816,8 @@ var AlphaFilter = /** @class */ (function (_super) {
 
 ;// CONCATENATED MODULE: ./node_modules/@pixi/filter-blur/lib/filter-blur.es.js
 /*!
- * @pixi/filter-blur - v5.3.3
- * Compiled Tue, 04 Aug 2020 16:23:09 UTC
+ * @pixi/filter-blur - v5.3.4
+ * Compiled Mon, 14 Dec 2020 19:48:09 UTC
  *
  * @pixi/filter-blur is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
@@ -44627,8 +44646,8 @@ var BlurFilter = /** @class */ (function (_super) {
 
 ;// CONCATENATED MODULE: ./node_modules/@pixi/filter-color-matrix/lib/filter-color-matrix.es.js
 /*!
- * @pixi/filter-color-matrix - v5.3.3
- * Compiled Tue, 04 Aug 2020 16:23:09 UTC
+ * @pixi/filter-color-matrix - v5.3.4
+ * Compiled Mon, 14 Dec 2020 19:48:09 UTC
  *
  * @pixi/filter-color-matrix is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
@@ -45161,8 +45180,8 @@ ColorMatrixFilter.prototype.grayscale = ColorMatrixFilter.prototype.greyscale;
 
 ;// CONCATENATED MODULE: ./node_modules/@pixi/filter-displacement/lib/filter-displacement.es.js
 /*!
- * @pixi/filter-displacement - v5.3.3
- * Compiled Tue, 04 Aug 2020 16:23:09 UTC
+ * @pixi/filter-displacement - v5.3.4
+ * Compiled Mon, 14 Dec 2020 19:48:09 UTC
  *
  * @pixi/filter-displacement is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
@@ -45298,8 +45317,8 @@ var DisplacementFilter = /** @class */ (function (_super) {
 
 ;// CONCATENATED MODULE: ./node_modules/@pixi/filter-fxaa/lib/filter-fxaa.es.js
 /*!
- * @pixi/filter-fxaa - v5.3.3
- * Compiled Tue, 04 Aug 2020 16:23:09 UTC
+ * @pixi/filter-fxaa - v5.3.4
+ * Compiled Mon, 14 Dec 2020 19:48:09 UTC
  *
  * @pixi/filter-fxaa is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
@@ -45364,8 +45383,8 @@ var FXAAFilter = /** @class */ (function (_super) {
 
 ;// CONCATENATED MODULE: ./node_modules/@pixi/filter-noise/lib/filter-noise.es.js
 /*!
- * @pixi/filter-noise - v5.3.3
- * Compiled Tue, 04 Aug 2020 16:23:09 UTC
+ * @pixi/filter-noise - v5.3.4
+ * Compiled Mon, 14 Dec 2020 19:48:09 UTC
  *
  * @pixi/filter-noise is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
@@ -45470,8 +45489,8 @@ var NoiseFilter = /** @class */ (function (_super) {
 
 ;// CONCATENATED MODULE: ./node_modules/@pixi/mixin-cache-as-bitmap/lib/mixin-cache-as-bitmap.es.js
 /*!
- * @pixi/mixin-cache-as-bitmap - v5.3.3
- * Compiled Tue, 04 Aug 2020 16:23:09 UTC
+ * @pixi/mixin-cache-as-bitmap - v5.3.4
+ * Compiled Mon, 14 Dec 2020 19:48:09 UTC
  *
  * @pixi/mixin-cache-as-bitmap is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
@@ -45796,8 +45815,8 @@ DisplayObject.prototype._cacheAsBitmapDestroy = function _cacheAsBitmapDestroy(o
 
 ;// CONCATENATED MODULE: ./node_modules/@pixi/mixin-get-child-by-name/lib/mixin-get-child-by-name.es.js
 /*!
- * @pixi/mixin-get-child-by-name - v5.3.3
- * Compiled Tue, 04 Aug 2020 16:23:09 UTC
+ * @pixi/mixin-get-child-by-name - v5.3.4
+ * Compiled Mon, 14 Dec 2020 19:48:09 UTC
  *
  * @pixi/mixin-get-child-by-name is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
@@ -45846,8 +45865,8 @@ Container.prototype.getChildByName = function getChildByName(name, deep) {
 
 ;// CONCATENATED MODULE: ./node_modules/@pixi/mixin-get-global-position/lib/mixin-get-global-position.es.js
 /*!
- * @pixi/mixin-get-global-position - v5.3.3
- * Compiled Tue, 04 Aug 2020 16:23:09 UTC
+ * @pixi/mixin-get-global-position - v5.3.4
+ * Compiled Mon, 14 Dec 2020 19:48:09 UTC
  *
  * @pixi/mixin-get-global-position is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
@@ -45882,8 +45901,8 @@ DisplayObject.prototype.getGlobalPosition = function getGlobalPosition(point, sk
 
 ;// CONCATENATED MODULE: ./node_modules/@pixi/mesh-extras/lib/mesh-extras.es.js
 /*!
- * @pixi/mesh-extras - v5.3.3
- * Compiled Tue, 04 Aug 2020 16:23:09 UTC
+ * @pixi/mesh-extras - v5.3.4
+ * Compiled Mon, 14 Dec 2020 19:48:09 UTC
  *
  * @pixi/mesh-extras is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
@@ -46609,8 +46628,8 @@ var NineSlicePlane = /** @class */ (function (_super) {
 
 ;// CONCATENATED MODULE: ./node_modules/@pixi/sprite-animated/lib/sprite-animated.es.js
 /*!
- * @pixi/sprite-animated - v5.3.3
- * Compiled Tue, 04 Aug 2020 16:23:09 UTC
+ * @pixi/sprite-animated - v5.3.4
+ * Compiled Mon, 14 Dec 2020 19:48:09 UTC
  *
  * @pixi/sprite-animated is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
@@ -47079,8 +47098,8 @@ var AnimatedSprite = /** @class */ (function (_super) {
 
 ;// CONCATENATED MODULE: ./node_modules/pixi.js/lib/pixi.es.js
 /*!
- * pixi.js - v5.3.3
- * Compiled Tue, 04 Aug 2020 16:23:09 UTC
+ * pixi.js - v5.3.4
+ * Compiled Mon, 14 Dec 2020 19:48:09 UTC
  *
  * pixi.js is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
@@ -48422,7 +48441,7 @@ Application.registerPlugin(AppLoaderPlugin);
  * @name VERSION
  * @type {string}
  */
-var pixi_es_VERSION = '5.3.3';
+var pixi_es_VERSION = '5.3.4';
 /**
  * @namespace PIXI
  */
@@ -48477,18 +48496,19 @@ var autoComplete_min_default = /*#__PURE__*/__webpack_require__.n(autoComplete_m
   // document.querySelector("#autoComplete").addEventListener("autoComplete", event => {
   //     console.log(event)
   // })
-  const placeholder = 'Search'; // The autoComplete.js Engine instance creator
-
+  // The autoComplete.js Engine instance creator
   const autoCompletejs = new (autoComplete_min_default())({
     // Data declaration
     data: {
       src: async () => {
         return s.nodes.reduce((array, {
+          tokens,
           name,
           x,
           y
         }) => {
           array.push({
+            token: `${Object.keys(tokens)[0]} (${Object.values(tokens)[0]})`,
             name: name,
             x: x,
             y: y
@@ -48496,46 +48516,16 @@ var autoComplete_min_default = /*#__PURE__*/__webpack_require__.n(autoComplete_m
           return array;
         }, []);
       },
-      key: ["name"],
-      // key: ["food", "cities", "animals"],
-      cache: false
+      key: ['token', 'name'],
+      cache: true
     },
-    // Sort
     sort: (a, b) => {
       if (a.match < b.match) return -1;
       if (a.match > b.match) return 1;
       return 0;
     },
-    placeHolder: placeholder,
-    selector: "#autoComplete",
-    threshold: 0,
-    debounce: 0,
-    // searchEngine: "strict",
-    searchEngine: "loose",
-    highlight: true,
-    maxResults: 10,
-    resultsList: {
-      render: true,
-      container: source => {
-        source.setAttribute("id", "autoComplete_list");
-      },
-      destination: document.querySelector("#autoComplete"),
-      position: "afterend",
-      element: "ul"
-    },
-    resultItem: {
-      content: (data, source) => {
-        source.innerHTML = data.match;
-      },
-      element: "li"
-    },
-    noResults: () => {
-      const result = document.createElement("li");
-      result.setAttribute("class", "no_result");
-      result.setAttribute("tabindex", "1");
-      result.innerHTML = "No Results";
-      document.querySelector("#autoComplete_list").appendChild(result);
-    },
+    placeHolder: 'Search',
+    maxResults: 20,
     onSelection: feedback => {
       console.log(feedback);
       const key = feedback.selection.key;
