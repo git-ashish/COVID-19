@@ -1,21 +1,22 @@
+const path = require('path');
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
-const path = require('path');
 
 module.exports = {
+  mode: 'development',
   output: {
-    // filename: 'bundle.js',
-    // filename: '[name].bundle.js',
-    path: path.resolve(__dirname, 'docs')
-    // chunkFilename: '[name].bundle.js'
+    path: path.resolve(__dirname, 'docs'),
   },
-  optimization: {
-    splitChunks: {
-      chunks: 'all',
-      minSize: 0,
-    }
-  },
+  plugins: [
+    new HtmlWebPackPlugin({
+      template: "./src/assets/index.html",
+      filename: "./index.html"
+    }),
+    new MiniCssExtractPlugin({
+      filename: "[name].css",
+      chunkFilename: "[id].css"
+    })
+  ],
   module: {
     rules: [
       {
@@ -40,7 +41,7 @@ module.exports = {
       },
       {
         type: 'javascript/auto',
-        test: /\.(json|png|fnt|xml)$/,
+        test: /\.(json|png|fnt)$/,
         // test: /\.json$/,
         use: [{
           loader: 'file-loader',
@@ -52,20 +53,4 @@ module.exports = {
       }
     ]
   },
-  optimization: {
-    minimize: true,
-    minimizer: [
-      new CssMinimizerPlugin(),
-    ],
-  },
-  plugins: [
-    new HtmlWebPackPlugin({
-      template: "./src/constant/index.html",
-      filename: "./index.html"
-    }),
-    new MiniCssExtractPlugin({
-      filename: "[name].css",
-      chunkFilename: "[id].css"
-    })
-  ],
 };

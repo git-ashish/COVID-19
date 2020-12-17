@@ -1,25 +1,15 @@
 // CSS
 
 import '../node_modules/normalize.css/normalize.css'
-import './constant/index.css'
+import './assets/main.css'
 
 // Libraries
 
-import { json, xml, image, blob } from 'd3'
+import { json, xml, image, extent, scaleLinear } from 'd3'
+import { Application, BitmapFont, Texture } from 'pixi.js'
+import { Viewport } from 'pixi-viewport'
 
-
-// Data
-
-import nodesJSON from './data/nodes.json'
-import linksJSON from './data/links.json'
-import tripletsJSON from './data/triplets.json'
-
-import search from './elements/search'
-import stats from './elements/stats'
-
-// Init
-
-import fps from './elements/fps.js'
+// Assets
 
 import background from './draw/background'
 import clusters from './draw/clusters.js'
@@ -29,12 +19,16 @@ import keywords_close from './draw/keywords_close.js'
 import keywords_distant from './draw/keywords_distant.js'
 import nodes from './draw/nodes.js'
 
-import { Application, BitmapFont, Texture } from 'pixi.js'
-import { Viewport } from 'pixi-viewport'
-import { extent, scaleLinear } from 'd3'
+import fps from './elements/fps.js'
+import search from './elements/search'
+import stats from './elements/stats'
 
-import arialXML from './constant/Lato.fnt'
-import arialPNG from './constant/Lato.png'
+import fontXML from './assets/Lato.fnt'
+import fontPNG from './assets/Lato.png'
+
+import linksJSON from './data/links.json'
+import nodesJSON from './data/nodes.json'
+import tripletsJSON from './data/triplets.json'
 
 // Global variables
 
@@ -51,8 +45,8 @@ Promise.all([
     json(linksJSON),
     json(nodesJSON),
     json(tripletsJSON),
-    xml(arialXML),
-    image(arialPNG),
+    xml(fontXML),
+    image(fontPNG),
 
 ]).then(([linksData, nodesData, tripletsData, xml, png]) => {
 
