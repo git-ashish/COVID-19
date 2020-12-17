@@ -1,6 +1,6 @@
 import { BitmapText, Circle, Graphics, Point } from 'pixi.js'
 
-import { mouseover, mouseout } from '../elements/mouseover'
+import { mouseover, mouseout } from '../interface/mouseover'
 
 const splitInTwo = string => {
     const middle = Math.round(string.length / 2)

@@ -19,9 +19,9 @@ import keywords_close from './draw/keywords_close.js'
 import keywords_distant from './draw/keywords_distant.js'
 import nodes from './draw/nodes.js'
 
-import fps from './elements/fps.js'
-import search from './elements/search'
-import stats from './elements/stats'
+import fps from './interface/fps.js'
+import search from './interface/search'
+import stats from './interface/stats'
 
 import fontXML from './assets/Lato.fnt'
 import fontPNG from './assets/Lato.png'
