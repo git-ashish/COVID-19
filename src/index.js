@@ -1,6 +1,6 @@
 // CSS
 
-import '../node_modules/normalize.css/normalize.css'
+import '../node_modules/css-reset-and-normalize/css/reset-and-normalize.min.css'
 import './assets/main.css'
 
 // Libraries

@@ -37,9 +37,9 @@
   "dependencies": {
     "@tarekraafat/autocomplete.js": "8.1.0",
     "css-minimizer-webpack-plugin": "^1.1.5",
+    "css-reset-and-normalize": "^2.3.5",
     "d3": "^6.3.1",
     "fps": "0.0.3",
-    "normalize.css": "^8.0.1",
     "pixi-viewport": "^4.18.1",
     "pixi.js": "^5.3.5"
   }
