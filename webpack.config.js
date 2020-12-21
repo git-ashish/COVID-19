@@ -27,29 +27,18 @@ module.exports = {
         }
       },
       {
-        test: /\.html$/,
-        use: [
-          {
-            loader: "html-loader",
-            options: { minimize: true }
-          }
-        ]
-      },
-      {
         test: /\.css$/,
         use: [MiniCssExtractPlugin.loader, "css-loader"]
       },
       {
         type: 'javascript/auto',
         test: /\.(json|png|fnt)$/,
-        // test: /\.json$/,
         use: [{
           loader: 'file-loader',
           options: {
             name: "[name].[ext]"
           }
-        }
-        ]
+        }]
       }
     ]
   },
