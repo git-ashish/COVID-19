@@ -29,9 +29,9 @@
     "remove-accents": "^0.4.2",
     "skmeans": "^0.11.3",
     "stopword": "^1.0.6",
-    "webpack": "^5.11.0",
+    "webpack": "^5.11.1",
     "webpack-cli": "^4.3.0",
-    "webpack-dev-server": "^3.11.0"
+    "webpack-dev-server": "^3.11.1"
   },
   "dependencies": {
     "@tarekraafat/autocomplete.js": "8.2.0",
@@ -39,6 +39,6 @@
     "d3": "^6.3.1",
     "fps": "0.0.3",
     "pixi-viewport": "^4.18.1",
-    "pixi.js": "^5.3.6"
+    "pixi.js": "^5.3.7"
   }
 }
