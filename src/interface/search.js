@@ -3,28 +3,23 @@ import autoComplete from '@tarekraafat/autocomplete.js'
 
 export default () => {
 
-    // Listner
-    // document.querySelector("#autoComplete").addEventListener("autoComplete", event => {
-    //     console.log(event)
-    // })
+    // Data
+
+    const data = s.nodes.reduce((array, { tokens, name, x, y }) => {
+        array.push({
+            token: `${Object.keys(tokens)[0]} (${Object.values(tokens)[0]})`,
+            name: name,
+            x: x, y: y,
+        })
+        return array
+    }, [])
 
     // The autoComplete.js Engine instance creator
 
     const autoCompletejs = new autoComplete({
 
-        // Data declaration
-
         data: {
-            src: async () => {
-                return s.nodes.reduce((array, { tokens, name, x, y }) => {
-                    array.push({
-                        token: `${Object.keys(tokens)[0]} (${Object.values(tokens)[0]})`,
-                        name: name,
-                        x: x, y: y,
-                    })
-                    return array
-                }, [])
-            },
+            src: data,
             key: ['token', 'name'],
             cache: true
         },
