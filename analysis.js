@@ -34,9 +34,6 @@ const analysis = authors => {
     //   maxLinkValue : 2686
     //   minLinkValue : 164
 
-    console.log(nodes.length)
-    return
-
 
     // Tokenizer
 
