@@ -128,7 +128,7 @@ Promise.all([
     nodes()
     keywords_close()
     keywords_distant()
-    // clusters()
+    clusters()
     fps()
     search()
 

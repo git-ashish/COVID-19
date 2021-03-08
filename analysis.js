@@ -26,7 +26,7 @@ const analysis = authors => {
 
     // Reduce authors
 
-    const maxDocs = 5
+    const maxDocs = 20
     const nodes = authors.filter(a => a.docs >= maxDocs)
 
     //     nodes.json : 3,768,648kb for 3297 authors
@@ -87,7 +87,7 @@ const analysis = authors => {
         frequency.addDocument(node.tokens)
     })
 
-    // Set Tokens and Relevancy
+    // Set tfidf and its relevancy
 
     const max = 30
 
@@ -95,14 +95,14 @@ const analysis = authors => {
 
         console.log('Reducing for author #', i)
 
-        node.tokens = frequency.listTerms(i)
+        node.tfidf = frequency.listTerms(i)
             .slice(0, max)
             .reduce((tokens, token) => {
                 tokens[token.term] = Math.round(token.tfidf)
                 return tokens
             }, {})
 
-        node.relevancy = Object.values(node.tokens).reduce((a, b) => a + b)
+        node.relevancy = Object.values(node.tfidf).reduce((a, b) => a + b)
     })
 
     // Set links
@@ -113,12 +113,12 @@ const analysis = authors => {
     for (let i1 = 0; i1 < nodes.length; i1++) {
 
         const n1 = nodes[i1]
-        const t1 = Object.keys(n1.tokens)
+        const t1 = Object.keys(n1.tfidf)
 
         for (let i2 = i1 + 1; i2 < nodes.length; i2++) {
 
             const n2 = nodes[i2]
-            const t2 = Object.keys(n2.tokens)
+            const t2 = Object.keys(n2.tfidf)
 
             const tokens = t1.filter(term => t2.includes(term))
 
@@ -133,19 +133,19 @@ const analysis = authors => {
 
                 if (!link) link = links.find(link => link.source === n1.id && link.target === n2.id)
 
-                const value = n1.tokens[token] + n2.tokens[token]
+                const value = n1.tfidf[token] + n2.tfidf[token]
                 // console.log(value)
 
                 if (link) {
                     link.value += value
-                    link.tokens[token] = value
+                    link.tfidf[token] = value
                 } else {
                     // console.log(n1.name)
                     const link = {
                         source: n1.id,
                         target: n2.id,
                         value: value,
-                        tokens: {
+                        tfidf: {
                             [token]: value,
                         }
                     }
@@ -155,11 +155,11 @@ const analysis = authors => {
                 }
             })
 
-            const tokensSorted = Object.entries(link.tokens)
+            const tokensSorted = Object.entries(link.tfidf)
                 .sort((a, b) => b[1] - a[1])
             // .slice(0, 3)
 
-            link.tokens = Object.fromEntries(tokensSorted)
+            link.tfidf = Object.fromEntries(tokensSorted)
 
         }
 
@@ -168,8 +168,8 @@ const analysis = authors => {
     // Sort links by value
 
     const compare = (a, b) => {
-        valueA = Object.values(a.tokens)[0]
-        valueB = Object.values(b.tokens)[0]
+        valueA = Object.values(a.tfidf)[0]
+        valueB = Object.values(b.tfidf)[0]
         if (valueA > valueB) return -1
         if (valueB > valueA) return 1
         return 0
@@ -182,7 +182,7 @@ const analysis = authors => {
 
     const maxLinkValue = links.reduce((max, link) => max > link.value ? max : link.value, 0)
     const minLinkValue = links.reduce((min, link) => min < link.value ? min : link.value, Infinity)
-    const maxCommonTokens = links.reduce((max, link) => max > link.tokens.length ? max : link.tokens.length, 0)
+    const maxCommonTokens = links.reduce((max, link) => max > link.tfidf.length ? max : link.tfidf.length, 0)
     links.forEach(link => link.value = link.value / maxLinkValue)
 
     // Cleaning nodes without relations
@@ -260,25 +260,36 @@ const analysis = authors => {
 
     }
 
+    // K-Means
+    
     const afterSimulation = (nodes, links) => {
-
-
-
-        // K-Means
 
         console.log('Clustering')
 
         const clustering = skmeans(nodes.map(n => [n.x, n.y]), 30)
 
+        console.log(clustering)
+
         let millefeuille1 = []
         let millefeuille2 = []
 
+        // Set node cluster
+
+        nodes.forEach((node, i) => node.cluster = clustering.idxs[i])
+
+        // Set node millefeuille1 and millefeuille2
+        
         nodes.forEach((node, i) => {
-            node.cluster = clustering.idxs[i]
             millefeuille1.push([node.clusterid, node.nationality, 1])
             for (var key in node.nationalities)
                 millefeuille2.push([node.clusterid, node.nationality, key, node.nationalities[key]])
         })
+
+        // TF-IDF on clusters
+
+        // let clusters = {}
+
+        // nodes.forEach((node, i) => console.log(node.tokens))
 
         // Triplets
 
@@ -308,8 +319,8 @@ const analysis = authors => {
 
                 if (!proximity(n1, n2)) continue
 
-                const l1 = Object.keys(n1.tokens)
-                const l2 = Object.keys(n2.tokens)
+                const l1 = Object.keys(n1.tfidf)
+                const l2 = Object.keys(n2.tfidf)
                 const l12 = l1.filter(t => l2.includes(t))
                 if (l12.length == 0) continue
 
@@ -320,7 +331,7 @@ const analysis = authors => {
                     if (!proximity(n2, n3)) continue
                     if (!proximity(n3, n1)) continue
 
-                    const l3 = Object.keys(n3.tokens)
+                    const l3 = Object.keys(n3.tfidf)
                     let list = l12.filter(t => l3.includes(t))
                     if (list.length == 0) continue
 
@@ -328,16 +339,16 @@ const analysis = authors => {
                     const y = (n1.y + n2.y + n3.y) / 3
 
                     list = list.map(token => {
-                        const v1 = (n1.tokens[token])
-                        const v2 = (n2.tokens[token])
-                        const v3 = (n3.tokens[token])
+                        const v1 = (n1.tfidf[token])
+                        const v2 = (n2.tfidf[token])
+                        const v3 = (n3.tfidf[token])
                         return [token, v1 + v2 + v3]
                     }).sort((a, b) => b[1] - a[1])
 
                     triplets.push({
                         index: triplets.length,
                         position: [Math.round(x), Math.round(y)],
-                        tokens: list
+                        tfidf: list
                     })
 
                     counter += 1
@@ -349,19 +360,19 @@ const analysis = authors => {
         // Sort triplets by first value
 
         const compare = (a, b) => {
-            if (a.tokens[0][1] > b.tokens[0][1]) return -1
-            if (b.tokens[0][1] > a.tokens[0][1]) return 1
+            if (a.tfidf[0][1] > b.tfidf[0][1]) return -1
+            if (b.tfidf[0][1] > a.tfidf[0][1]) return 1
             return 0
         }
 
         triplets.sort(compare)
 
 
-        writing(nodes, links, triplets, millefeuille1, millefeuille2)
+        writing(nodes, links, triplets, millefeuille1, millefeuille2, clustering)
 
     }
 
-    const writing = (nodes, links, triplets, millefeuille1, millefeuille2) => {
+    const writing = (nodes, links, triplets, millefeuille1, millefeuille2, clustering) => {
 
         // Clean links and nodes
 
@@ -375,7 +386,7 @@ const analysis = authors => {
                 value: roundToTwo(link.value),
                 source: { x: Math.round(link.source.x), y: Math.round(link.source.y) },
                 target: { x: Math.round(link.target.x), y: Math.round(link.target.y) },
-                // tokens: link.tokens,
+                // tokens: link.tfidf,
             })
             return links
         }, [])
@@ -391,12 +402,16 @@ const analysis = authors => {
 
         fs.writeFile('./src/data/nodes.json', JSON.stringify(nodes), err => { if (err) throw err })
         fs.writeFile('./data/nodes.json', stringify(nodes, { maxLength: 200 }), err => { if (err) throw err })
+        
         fs.writeFile('./src/data/links.json', JSON.stringify(links), err => { if (err) throw err })
         fs.writeFile('./data/links.json', stringify(links, { maxLength: 200 }), err => { if (err) throw err })
+        
         fs.writeFile('./src/data/triplets.json', JSON.stringify(triplets), err => { if (err) throw err })
         fs.writeFile('./data/triplets.json', stringify(triplets, { maxLength: 200 }), err => { if (err) throw err })
+        
         fs.writeFile('./data/millefeuille1.json', stringify(millefeuille1, { maxLength: 200 }), err => { if (err) throw err })
         fs.writeFile('./data/millefeuille2.json', stringify(millefeuille2, { maxLength: 200 }), err => { if (err) throw err })
+        fs.writeFile('./data/clustering.json', stringify(clustering, { maxLength: 200 }), err => { if (err) throw err })
 
         // Final report
 
