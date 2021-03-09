@@ -26,6 +26,8 @@ import stats from './interface/stats'
 import fontXML from './assets/Lato.fnt'
 import fontPNG from './assets/Lato.png'
 
+import award from './assets/DHAwards2020-viz.png'
+
 import linksJSON from './data/links.json'
 import nodesJSON from './data/nodes.json'
 import tripletsJSON from './data/triplets.json'
@@ -47,8 +49,16 @@ Promise.all([
     json(tripletsJSON),
     xml(fontXML),
     image(fontPNG),
+    image(award),
 
-]).then(([linksData, nodesData, tripletsData, xml, png]) => {
+]).then(([linksData, nodesData, tripletsData, xml, png, award]) => {
+
+    // Append award
+
+    document.getElementById('award').append(award)
+
+
+    // Stats
 
     s.links = linksData; console.log('links', s.links.length)
     s.nodes = nodesData; console.log('nodes', s.nodes.length)
@@ -59,7 +69,6 @@ Promise.all([
     s.app = new Application({
         width: window.innerWidth, height: window.innerHeight,
         antialias: true,
-        transparent: true,
         resolution: 2,
         autoDensity: true,
         autoResize: true,
@@ -128,7 +137,7 @@ Promise.all([
     nodes()
     keywords_close()
     keywords_distant()
-    clusters()
+    // clusters()
     fps()
     search()
 

@@ -13,13 +13,13 @@ export default () => {
     stage.interactiveChildren = false
     s.viewport.addChild(stage)
     
-    const maxValue = max(s.triplets.map(t => t.tokens[0][1]))
+    const maxValue = max(s.triplets.map(t => t.tfidf[0][1]))
     
     s.triplets
-        .filter(t => t.tokens[0][1] < maxValue * .2)
+        .filter(t => t.tfidf[0][1] < maxValue * .2)
         .forEach(triplet => {
 
-            const token = triplet.tokens.slice(0, 1)
+            const token = triplet.tfidf.slice(0, 1)
             const x = triplet.position[0]
             const y = triplet.position[1]
 

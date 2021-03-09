@@ -1,6 +1,6 @@
 import { BitmapText, Circle, Graphics, Point } from 'pixi.js'
 
-import { mouseover, mouseout } from '../interface/mouseover'
+import { click } from '../interface/click'
 
 const splitInTwo = string => {
     const middle = Math.round(string.length / 2)
@@ -62,23 +62,15 @@ export default () => {
 
         // Set information panel & set on circles
 
-        node.circle.mouseover = mouseData => {
-            mouseover(node)
+        node.circle.buttonMode = true
+
+        node.circle.click = mouseData => {
+            click(node)
             s.nodes.filter(peer => node.peers.includes(peer.id))
                 .forEach(node => {
                     node.circle.tint = color.on
                     node.text.tint = color.on
                 })
-        }
-
-        // Clean information panel & set off circles
-
-        node.circle.mouseout = mouseData => {
-            mouseout(node)
-            s.nodes.forEach(node => {
-                node.circle.tint = color.off
-                node.text.tint = color.off
-            })
         }
 
     })

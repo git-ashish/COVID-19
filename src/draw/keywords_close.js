@@ -13,7 +13,7 @@ export default () => {
 
     s.triplets.forEach(triplet => {
 
-        const tokens = triplet.tokens.slice(0, items)
+        const tokens = triplet.tfidf.slice(0, items)
         const offsetY = lineHeight * (tokens.length - 1) / 2
         const x = triplet.position[0]
         const y = triplet.position[1]

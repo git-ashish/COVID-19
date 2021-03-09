@@ -26,7 +26,7 @@ const analysis = authors => {
 
     // Reduce authors
 
-    const maxDocs = 20
+    const maxDocs = 5
     const nodes = authors.filter(a => a.docs >= maxDocs)
 
     //     nodes.json : 3,768,648kb for 3297 authors
@@ -287,9 +287,22 @@ const analysis = authors => {
 
         // TF-IDF on clusters
 
-        // let clusters = {}
+        let clusters = Array.from([1, 2, 3], x => x + x)
 
-        // nodes.forEach((node, i) => console.log(node.tokens))
+        // clustering.idxs.forEach(id => clusters.push({id: id}))
+
+        // nodes.forEach(node => {
+        //     if (clusters[node.cluster]) {
+
+        //     } else {
+
+        //     }
+        //     // if (clusters[node.cluster].tokens) {
+        //     //     clusters[node.cluster].tokens.push(node.tokens)
+        //     // } else {
+        //     //     clusters[node.cluster].tokens = node.tokens
+        //     // }
+        // })
 
         // Triplets
 
@@ -368,11 +381,11 @@ const analysis = authors => {
         triplets.sort(compare)
 
 
-        writing(nodes, links, triplets, millefeuille1, millefeuille2, clustering)
+        writing(nodes, links, triplets, millefeuille1, millefeuille2, clusters)
 
     }
 
-    const writing = (nodes, links, triplets, millefeuille1, millefeuille2, clustering) => {
+    const writing = (nodes, links, triplets, millefeuille1, millefeuille2, clusters) => {
 
         // Clean links and nodes
 
@@ -411,7 +424,7 @@ const analysis = authors => {
         
         fs.writeFile('./data/millefeuille1.json', stringify(millefeuille1, { maxLength: 200 }), err => { if (err) throw err })
         fs.writeFile('./data/millefeuille2.json', stringify(millefeuille2, { maxLength: 200 }), err => { if (err) throw err })
-        fs.writeFile('./data/clustering.json', stringify(clustering, { maxLength: 200 }), err => { if (err) throw err })
+        fs.writeFile('./data/clusters.json', stringify(clusters, { maxLength: 200 }), err => { if (err) throw err })
 
         // Final report
 

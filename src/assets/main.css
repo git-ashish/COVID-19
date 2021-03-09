@@ -35,7 +35,7 @@ a {
 	 * Containers		
 ******************************************************************************/
 
-#focus, #title, #search, #warning {
+#focus, #title, #search, #warning, #award {
 	background-color: rgba(0, 0, 0, .7);
 	position: absolute;
 	border: none;
@@ -45,6 +45,15 @@ a {
 #focus {
 	left: 0;
 	top: 10;
+}
+
+#award {
+	left: 0;
+	bottom: 10;
+}
+
+#award img {
+	width: 134px;
 }
 
 #title {
