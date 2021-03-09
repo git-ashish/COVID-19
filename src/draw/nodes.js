@@ -65,13 +65,27 @@ export default () => {
         node.circle.buttonMode = true
 
         node.circle.click = mouseData => {
+
+            // Set information panel
+
             click(node)
+
+            // Switch off nodes
+
+            s.nodes.forEach(node => {
+                node.circle.tint = color.off
+                node.text.tint = color.off
+            })
+
+            // Switch on nodes
+
             s.nodes.filter(peer => node.peers.includes(peer.id))
                 .forEach(node => {
                     node.circle.tint = color.on
                     node.text.tint = color.on
                 })
         }
+
 
     })
 
