@@ -1,10 +1,10 @@
 # Cartography of COVID-19
 
-Network visualizations are instruments for distant reading, a visual approach to explore large phenomena. The Cartography of COVID-19 is about the scientific literature that has been produced in the last months to understand how the coronavirus affects society. The work has no pretense to explain the phenomena but rather to make visible the effort of scientists through their scientific production, totaling 170,000 articles on July 1, 2020.
+Network visualizations are instruments for distant reading to visually explore large corpora. The Cartography of COVID-19 concerns the scientific literature that has been produced in the last months, which is used to understand how the coronavirus has affected society through the eyes of scientists. The work has no pretense to explain the pandemic but rather to make visible the effort of science through scientific production, which counts 400,000 articles on December 1, 2020.
 
 ## Method
 
-Using the open-source database <a href='https://pages.semanticscholar.org/coronavirus-research'>COVID&#8209;19 Open Research Dataset (CORD&#8209;19)</a> released on July 1, 2020 by the <a href='https://allenai.org/'>Allen Institute for AI</a>, scientific articles are grouped by authors and analyzed with methods of Natural Language Processing. The result is a metric of lexical similarity between authors, which enabled to space out the scientific community as a network where two authors that use the same vocabulary are next to each other. (More information about the method on this article titled [Mapping as a Contemporary Instrument for Orientation in Conferences](https://doi.org/10.5281/zenodo.3611341)).
+Using the open-source database <a href='https://pages.semanticscholar.org/coronavirus-research'>COVID-19 Open Research Dataset (CORD-19)</a> released by the <a href='https://allenai.org/'>Allen Institute for AI</a>, its articles are grouped by authors and analyzed with Natural Language Processing. The result is a metric of lexical similarity between authors, which enabled to space out the scientific community as a network where two authors that use the same vocabulary are next to each other. (More information about the method on this article titled [Mapping as a Contemporary Instrument for Orientation in Conferences](https://doi.org/10.5281/zenodo.3611341)).
 
 ## Use
 
