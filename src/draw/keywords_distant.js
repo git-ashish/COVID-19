@@ -16,7 +16,7 @@ export default () => {
     const maxValue = max(s.triplets.map(t => t.tfidf[0][1]))
     
     s.triplets
-        .filter(t => t.tfidf[0][1] < maxValue * .2)
+        .filter(t => t.tfidf[0][1] < maxValue * .3)
         .forEach(triplet => {
 
             const token = triplet.tfidf.slice(0, 1)

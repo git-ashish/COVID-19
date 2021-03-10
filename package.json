@@ -36,7 +36,7 @@
   "dependencies": {
     "@tarekraafat/autocomplete.js": "8.3.2",
     "css-reset-and-normalize": "^2.3.5",
-    "d3": "^6.5.0",
+    "d3": "^6.6.0",
     "fps": "0.0.3",
     "pixi-viewport": "^4.21.1",
     "pixi.js": "^6.0.0"

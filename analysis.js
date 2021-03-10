@@ -27,6 +27,7 @@ const analysis = authors => {
     // Reduce authors
 
     const maxDocs = 5
+    // const maxDocs = 20
     const nodes = authors.filter(a => a.docs >= maxDocs)
 
     //     nodes.json : 3,768,648kb for 3297 authors
@@ -69,7 +70,7 @@ const analysis = authors => {
 
     // Cleaning
 
-    const stopWords = ['clinical', 'technology', 'proper', 'fulfil', 'application', 'percentage', 'virus', 'coronavirus', 'covid', 'patient', 'republic', 'study', 'disiase', 'severe', 'balance', 'probable', 'feature', 'model', 'estimate', 'professional', 'serevice', 'opportunity', 'service', 'topic', 'theme', 'expression', 'driven', 'keyword', 'phase', 'group', 'target', 'critically', 'fellow', 'worsening', 'count', 'during']
+    const stopWords = ['clinical', 'technology', 'proper', 'fulfil', 'application', 'percentage', 'virus', 'coronavirus', 'covid', 'patient', 'republic', 'study', 'disiase', 'severe', 'balance', 'probable', 'feature', 'model', 'estimate', 'professional', 'serevice', 'opportunity', 'service', 'topic', 'theme', 'expression', 'driven', 'keyword', 'phase', 'group', 'target', 'critically', 'fellow', 'worsening', 'count', 'during', 'result', 'outcome', 'method', 'compared', 'associated', 'conclusion', 'number', 'factor', 'among', 'level', 'higher', 'country', 'using', 'including', 'outbreak', 'impact', 'measure', 'higher', 'finding', 'review', 'ratio', 'strategy', 'suspected', 'novel', 'rapid', 'estimated']
 
     nodes.forEach((node, i) => {
         console.log('Cleaning author #', i)
@@ -261,14 +262,16 @@ const analysis = authors => {
     }
 
     // K-Means
-    
+
     const afterSimulation = (nodes, links) => {
+
+        clusterNumber = 50
 
         console.log('Clustering')
 
-        const clustering = skmeans(nodes.map(n => [n.x, n.y]), 30)
+        const clustering = skmeans(nodes.map(n => [n.x, n.y]), clusterNumber)
 
-        console.log(clustering)
+        // console.log(clustering)
 
         let millefeuille1 = []
         let millefeuille2 = []
@@ -278,31 +281,45 @@ const analysis = authors => {
         nodes.forEach((node, i) => node.cluster = clustering.idxs[i])
 
         // Set node millefeuille1 and millefeuille2
-        
+
         nodes.forEach((node, i) => {
             millefeuille1.push([node.clusterid, node.nationality, 1])
             for (var key in node.nationalities)
                 millefeuille2.push([node.clusterid, node.nationality, key, node.nationalities[key]])
         })
 
-        // TF-IDF on clusters
+        // Collect tokens by cluster
 
-        let clusters = Array.from([1, 2, 3], x => x + x)
+        let clusters = new Array(clusterNumber)
 
-        // clustering.idxs.forEach(id => clusters.push({id: id}))
+        nodes.forEach(node => {
+            if (!clusters[node.cluster])
+                clusters[node.cluster] = []
+            clusters[node.cluster].push(...node.tokens)
+        })
 
-        // nodes.forEach(node => {
-        //     if (clusters[node.cluster]) {
+        // TF-IDF for each cluster
 
-        //     } else {
+        const clusterFrequency = new natural.TfIdf()
 
-        //     }
-        //     // if (clusters[node.cluster].tokens) {
-        //     //     clusters[node.cluster].tokens.push(node.tokens)
-        //     // } else {
-        //     //     clusters[node.cluster].tokens = node.tokens
-        //     // }
-        // })
+        for (let i = 0; i < clusters.length; i++) {
+            clusterFrequency.addDocument(clusters[i])
+        }
+
+
+
+        for (let i = 0; i < clusters.length; i++) {
+
+            console.log(clusterFrequency.listTerms(i))
+
+                clusters[i] = clusterFrequency.listTerms(i)
+                .slice(0, 20)
+                .reduce((tokens, token) => {
+                    tokens[token.term] = Math.round(token.tfidf)
+                    return tokens
+                }, {})
+
+        }
 
         // Triplets
 
@@ -415,13 +432,13 @@ const analysis = authors => {
 
         fs.writeFile('./src/data/nodes.json', JSON.stringify(nodes), err => { if (err) throw err })
         fs.writeFile('./data/nodes.json', stringify(nodes, { maxLength: 200 }), err => { if (err) throw err })
-        
+
         fs.writeFile('./src/data/links.json', JSON.stringify(links), err => { if (err) throw err })
         fs.writeFile('./data/links.json', stringify(links, { maxLength: 200 }), err => { if (err) throw err })
-        
+
         fs.writeFile('./src/data/triplets.json', JSON.stringify(triplets), err => { if (err) throw err })
         fs.writeFile('./data/triplets.json', stringify(triplets, { maxLength: 200 }), err => { if (err) throw err })
-        
+
         fs.writeFile('./data/millefeuille1.json', stringify(millefeuille1, { maxLength: 200 }), err => { if (err) throw err })
         fs.writeFile('./data/millefeuille2.json', stringify(millefeuille2, { maxLength: 200 }), err => { if (err) throw err })
         fs.writeFile('./data/clusters.json', stringify(clusters, { maxLength: 200 }), err => { if (err) throw err })
