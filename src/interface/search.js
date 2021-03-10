@@ -5,9 +5,9 @@ export default () => {
 
     // Data
 
-    const data = s.nodes.reduce((array, { tokens, name, x, y }) => {
+    const data = s.nodes.reduce((array, { tfidf, name, x, y }) => {
         array.push({
-            token: `${Object.keys(tokens)[0]} (${Object.values(tokens)[0]})`,
+            token: `${Object.keys(tfidf)[0]} (${Object.values(tfidf)[0]})`,
             name: name,
             x: x, y: y,
         })
