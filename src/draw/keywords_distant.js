@@ -7,21 +7,29 @@ export default () => {
 
     console.log()
 
-    
+
     const stage = new Graphics()
     stage.name = 'keywords_distant'
     stage.interactiveChildren = false
     s.viewport.addChild(stage)
-    
+
     const maxValue = max(s.triplets.map(t => t.tfidf[0][1]))
-    
+
+    // Make visible the first one
+    let visibleTokens = []
+
     s.triplets
-        .filter(t => t.tfidf[0][1] < maxValue * .3)
+        .filter(t => t.tfidf[0][1] < maxValue * .5)
         .forEach(triplet => {
 
             const token = triplet.tfidf.slice(0, 1)
             const x = triplet.position[0]
             const y = triplet.position[1]
+
+            if (visibleTokens.includes(token[0][0]))
+                return
+            else
+                visibleTokens.push(token[0][0])
 
             const text = new BitmapText(
                 token[0][0],
@@ -33,8 +41,8 @@ export default () => {
                 })
 
             const value = token[0][1]
-            const base = 10
-            const magnitude = .01
+            const base = 200
+            const magnitude = .003
             text.scale.set((value + base) * magnitude)
 
             text.position.set(x - text.width / 2, y - text.height / 2)
