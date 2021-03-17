@@ -426,6 +426,7 @@ const analysis = authors => {
             node.y = Math.round(node.y)
             delete node.vx
             delete node.vy
+            delete node.tokens
         })
 
         // Writing files
